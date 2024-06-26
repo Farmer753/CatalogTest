@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.jetbrainsKotlinKapt)
 }
 
 android {
@@ -45,6 +46,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -55,6 +57,25 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
+    //Logging
+    implementation(libs.timber)
+    //    hilt
+    implementation (libs.hilt)
+    kapt(libs.dagger)
+    //    retrofit
+    implementation(libs.retrofit)
+    //    retrofit-adapter
+    implementation(libs.adapter)
+    //okhttp
+    implementation(libs.okhttp)
+//    moshi
+    implementation(libs.moshi)
+//logging-interceptor
+    implementation(libs.interceptor)
+    //    coil
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+    // coroutines
+    implementation(libs.coroutines)
+    implementation(libs.lifecycle)
 }
