@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.jetbrainsKotlinKapt)
+    alias(libs.plugins.dagger.hilt.android)
 }
 
 android {
@@ -27,17 +28,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
@@ -57,11 +58,13 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    debugImplementation(libs.androidx.ui.tooling)
     //Logging
     implementation(libs.timber)
     //    hilt
     implementation (libs.hilt)
     kapt(libs.dagger)
+    implementation("com.squareup:javapoet:1.13.0")
     //    retrofit
     implementation(libs.retrofit)
     //    retrofit-adapter
