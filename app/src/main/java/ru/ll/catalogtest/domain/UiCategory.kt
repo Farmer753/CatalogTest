@@ -1,26 +1,37 @@
 package ru.ll.catalogtest.domain
 
+import kotlin.random.Random
+
 data class UiCategory(
     val title: String,
-    val seoTitle: String?,
+//    val seoTitle: String?,
     val slug: String,
-    val depth: Int,
+//    val depth: Int,
     val icon: String,
-    val webpIcon: String,
-    val description: String?,
-    val seoDescription: String?,
-    val bannerImage: String?,
-    val bannerMobileImage: String?,
-    val bannerHref: String?,
+//    val webpIcon: String,
+//    val description: String?,
+//    val seoDescription: String?,
+//    val bannerImage: String?,
+//    val bannerMobileImage: String?,
+//    val bannerHref: String?,
     val subCategories: List<UiCategory>
-)
-{
-    companion object{
-        const val ESKARO = "https://s3-alpha-sig.figma.com/img/073e/0a2a/fc2758da57ec1cfd3b55fb79d81c9c7c?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jvoVzD461ieUOLJGM3mVkPdtWbvIUJhJMFhxVnR~-6PWedDb9-by61w2IOxNQraWPyWCtkFSXwXrspD~vcm0icf8kBOgDACTvvuGJCnWRZtL~g06GoSTW6v2fyV1hSxvYfRT7BlsfnvA-uiPHbOEk~t-AuGZj0ksuZHb0xypLqdKsKrEtIubfWNRew188Bf-GjnPv8AVoXqCLUJ1C6iOVhNW7prbtvJ-3sXUzoxYDKHBt84dENoTDQoPQhsa4tmFpK1iNWETBv-oGqqQw6lj6xcHYJxYyTiW-0~d1TrSKeRHHlBVZoaj5w3I7GNEi-uVdfNAWMaftAibaJQWi0~UiQ__"
+) {
+    companion object {
+        const val ESKARO = "https://vimos.ru/u/category/ObEcDB_1685695466.png"
+        fun test(level:Int): UiCategory {
+            return UiCategory(
+                title = "Заголовок",
+                slug = "Слаг",
+                icon = ESKARO,
+                subCategories = listOf()
+//                subCategories = if (level!=0&&Random.nextBoolean()) {
+//                    listOf()
+//                } else {
+////                    (0..Random.nextInt(5)).map { test(level-1) }
+//                    listOf(test(0), test(0))
+//                }
+            )
+        }
     }
 }
-//fun test():UiProduct{
-//return UiProduct(
-//    title = "Заголовок",
-//)
-//}
+

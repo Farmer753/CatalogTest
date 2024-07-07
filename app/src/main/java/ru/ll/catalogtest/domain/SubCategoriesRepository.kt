@@ -1,5 +1,5 @@
 package ru.ll.catalogtest.domain
 
 interface SubCategoriesRepository {
-    suspend fun getData(): List<UiProduct>
+    suspend fun getData(slug: String): List<UiProduct>
 }
