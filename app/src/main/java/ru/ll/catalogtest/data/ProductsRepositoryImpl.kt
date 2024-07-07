@@ -1,14 +1,14 @@
 package ru.ll.catalogtest.data
 
 import ru.ll.catalogtest.domain.ProductsRepository
-import ru.ll.catalogtest.domain.UiProduct
-import ru.ll.catalogtest.domain.api.ProductsApi
+import ru.ll.catalogtest.domain.UiCategory
+import ru.ll.catalogtest.domain.api.CategoriesApi
 
 class ProductsRepositoryImpl(
-    private val productsApi: ProductsApi,
+    private val categoriesApi: CategoriesApi,
     private val converter: Converter
 ) : ProductsRepository {
-    override suspend fun getData(): List<UiProduct> {
-        return productsApi.getAllProducts().map { converter.convert(it) }
+    override suspend fun getData(): List<UiCategory> {
+        return categoriesApi.getAllCategories().map { converter.convert(it) }
     }
 }

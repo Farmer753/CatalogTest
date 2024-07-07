@@ -1,34 +1,39 @@
 package ru.ll.catalogtest.data
 
+import ru.ll.catalogtest.domain.UiCategory
 import ru.ll.catalogtest.domain.UiProduct
-import ru.ll.catalogtest.domain.UiSubCategorie
+import ru.ll.catalogtest.domain.api.NwCategory
 import ru.ll.catalogtest.domain.api.NwProduct
-import ru.ll.catalogtest.domain.api.NwSubCategorie
 
 class Converter {
-    fun convert(nwProduct: NwProduct): UiProduct {
-        return UiProduct(
-            title = nwProduct.title,
-            seoTitle = nwProduct.seoTitle,
-            slug = nwProduct.slug,
-            depth = nwProduct.depth,
-            icon = nwProduct.icon,
-            webpIcon = nwProduct.webpIcon,
-            description = nwProduct.description,
-            seoDescription = nwProduct.seoDescription,
-            bannerImage = nwProduct.bannerImage,
-            bannerMobileImage = nwProduct.bannerMobileImage,
-            bannerHref = nwProduct.bannerHref,
-            subCategories = nwProduct.subCategories
+    fun convert(nwCategory: NwCategory): UiCategory {
+        return UiCategory(
+            title = nwCategory.title,
+            seoTitle = nwCategory.seoTitle,
+            slug = nwCategory.slug,
+            depth = nwCategory.depth,
+            icon = nwCategory.icon,
+            webpIcon = nwCategory.webpIcon,
+            description = nwCategory.description,
+            seoDescription = nwCategory.seoDescription,
+            bannerImage = nwCategory.bannerImage,
+            bannerMobileImage = nwCategory.bannerMobileImage,
+            bannerHref = nwCategory.bannerHref,
+            subCategories = nwCategory.subCategories.map { convert(it) }
         )
     }
 
-    fun convert(nwSubCategorie: NwSubCategorie): UiSubCategorie {
-        return UiSubCategorie(
-            name = nwSubCategorie.name,
-            message = nwSubCategorie.message,
-            code = nwSubCategorie.code,
-            status = nwSubCategorie.status
+    fun convert(nwProduct: NwProduct): UiProduct {
+        return UiProduct(
+            id = nwProduct.id,
+            title = nwProduct.title,
+            slug = nwProduct.slug,
+            sky = nwProduct.sky,
+            description = nwProduct.description,
+            price = nwProduct.purchase.price,
+            priceOld = nwProduct.purchase.priceOld,
+            sizeDiscount = nwProduct.purchase.sizeDiscount,
+            images = nwProduct.images.map { it.original }
         )
     }
 }

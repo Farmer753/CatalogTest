@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.R
-import ru.ll.catalogtest.domain.UiProduct
+import ru.ll.catalogtest.domain.UiCategory
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
 
 @Preview
@@ -45,7 +45,7 @@ fun CardProduct() {
                 .weight(1f)
         ) {
             AsyncImage(
-                model = UiProduct.ESKARO,
+                model = UiCategory.ESKARO,
                 contentDescription = "test",
                 placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
                 modifier = Modifier

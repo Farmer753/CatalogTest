@@ -9,8 +9,8 @@ import ru.ll.catalogtest.data.ProductsRepositoryImpl
 import ru.ll.catalogtest.data.SubCategoriesRepositoryImpl
 import ru.ll.catalogtest.domain.ProductsRepository
 import ru.ll.catalogtest.domain.SubCategoriesRepository
-import ru.ll.catalogtest.domain.api.ProductsApi
-import ru.ll.catalogtest.domain.api.SubCategoriesApi
+import ru.ll.catalogtest.domain.api.CategoriesApi
+import ru.ll.catalogtest.domain.api.ProductApi
 import javax.inject.Singleton
 
 @Module
@@ -26,18 +26,18 @@ object DomainModule {
     @Provides
     @Singleton
     fun provideProductsRepository(
-        productsApi: ProductsApi,
+        categoriesApi: CategoriesApi,
         converter: Converter
     ): ProductsRepository {
-        return ProductsRepositoryImpl(productsApi, converter)
+        return ProductsRepositoryImpl(categoriesApi, converter)
     }
 
     @Provides
     @Singleton
     fun provideSubCategoriesRepository(
-        subCategoriesApi: SubCategoriesApi,
+        productApi: ProductApi,
         converter: Converter
     ): SubCategoriesRepository {
-        return SubCategoriesRepositoryImpl(subCategoriesApi, converter)
+        return SubCategoriesRepositoryImpl(productApi, converter)
     }
 }

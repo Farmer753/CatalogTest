@@ -3,23 +3,23 @@ package ru.ll.catalogtest.domain.api
 import com.squareup.moshi.Json
 
 data class NwProduct(
+    val id: Int,
     val title: String,
-    @Json(name = "seo_title")
-    val seoTitle: String?,
     val slug: String,
-    val depth: Int,
-    val icon: String,
-    @Json(name = "webp_icon")
-    val webpIcon: String,
-    val description: String?,
-    @Json(name = "seo_description")
-    val seoDescription: String?,
-    @Json(name = "banner_image")
-    val bannerImage: String?,
-    @Json(name = "banner_mobile_image")
-    val bannerMobileImage: String?,
-    @Json(name = "banner_href")
-    val bannerHref: String?,
-    //TODO List
-    val subCategories: List<String>
+    val sky: Int,
+    val description: String,
+    val purchase: NwPurchase,
+    val images: List<NwProductImage>
+)
+
+data class NwPurchase(
+    val price: Int,
+    @Json(name = "price_old")
+    val priceOld: Int,
+    @Json(name = "size_discount")
+    val sizeDiscount: Int,
+)
+
+data class NwProductImage(
+    val original: String
 )
