@@ -1,7 +1,9 @@
 package ru.ll.catalogtest.domain
 
+import kotlinx.serialization.Serializable
 import kotlin.random.Random
 
+@Serializable
 data class UiCategory(
     val title: String,
 //    val seoTitle: String?,
