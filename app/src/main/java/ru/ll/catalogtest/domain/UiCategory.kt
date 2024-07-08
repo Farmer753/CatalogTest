@@ -25,13 +25,13 @@ data class UiCategory(
                 title = "Заголовок",
                 slug = "Слаг",
                 icon = ESKARO,
-                subCategories = listOf()
-//                subCategories = if (level!=0&&Random.nextBoolean()) {
-//                    listOf()
-//                } else {
-////                    (0..Random.nextInt(5)).map { test(level-1) }
+//                subCategories = listOf()
+                subCategories = if (level!=0&&Random.nextBoolean()) {
+                    listOf()
+                } else {
+                    (0..Random.nextInt(5)).map { test(level-1) }
 //                    listOf(test(0), test(0))
-//                }
+                }
             )
         }
     }

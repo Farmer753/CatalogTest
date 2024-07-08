@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
 import ru.ll.catalogtest.domain.UiCategory
 import ru.ll.catalogtest.domain.UiProduct
@@ -24,6 +25,7 @@ import java.net.URLDecoder
 import java.net.URLEncoder
 import kotlin.reflect.typeOf
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Serializable
     object Catalog

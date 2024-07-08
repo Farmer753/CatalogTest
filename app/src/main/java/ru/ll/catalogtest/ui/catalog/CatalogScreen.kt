@@ -16,14 +16,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ru.ll.catalogtest.R
 import ru.ll.catalogtest.domain.UiCategory
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
@@ -38,6 +37,7 @@ fun CatalogPreview() {
 
 @Composable
 fun CatalogScreen(
+    viewModel: CatalogViewModel = hiltViewModel(),
     onCategoryClick: (UiCategory) -> Unit = {},
     onCategorySlugClick: (String) -> Unit = {}
 ) {
@@ -50,20 +50,25 @@ fun CatalogScreen(
         {
             Text(text = "Каталог товаров")
         }
-        val categories: MutableState<List<UiCategory>> = remember {
-            mutableStateOf(
-                (1..10).map { UiCategory.test(1) }
-            )
-        }
-        LazyColumn {
-            items(categories.value) {
-                CatalogStart(
-                    modifier = Modifier.weight(1f),
-                    it
-                ) {
+        val categories = viewModel.catalog.collectAsState()
+//        val categories: MutableState<List<UiCategory>> = remember {
+//            mutableStateOf(
+//                (1..10).map { UiCategory.test(1) }
+//            )
+//        }
+        categories.value?.let {
+            LazyColumn {
+                items(it) {
+                    CatalogStart(
+                        modifier = Modifier.weight(1f),
+                        it
+                    ) {
 //          TODO
+                    }
                 }
             }
+        } ?: run {
+            //TODO show progress
         }
 
         Box(modifier = Modifier.padding(16.dp, 12.dp)) {
