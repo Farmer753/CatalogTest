@@ -40,7 +40,7 @@ import ru.ll.catalogtest.ui.theme.CatalogTestTheme
 
 @Preview
 @Composable
-fun CatalogPreview() {
+fun CategoryProductsPreview() {
     CatalogTestTheme {
         CategoryProductsScreen("")
     }
@@ -99,7 +99,7 @@ fun Product(
             Column {
                 Box(modifier = Modifier.padding(16.dp, 12.dp)) {
                     AsyncImage(
-                        model = UiProduct.TOM,
+                        model = UiProduct.PNG,
                         contentDescription = "test",
                         placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
                         modifier = Modifier

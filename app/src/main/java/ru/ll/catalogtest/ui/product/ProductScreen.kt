@@ -83,7 +83,7 @@ fun ProductScreen() {
                 .weight(1f)
         ) {
             AsyncImage(
-                model = UiProduct.TOM,
+                model = UiProduct.PNG,
                 contentDescription = "test",
                 placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
                 modifier = Modifier

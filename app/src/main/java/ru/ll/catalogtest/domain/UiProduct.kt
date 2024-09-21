@@ -16,8 +16,8 @@ data class UiProduct(
     val images: List<String>
 ) {
     companion object {
-        const val TOM =
-            "https://s3-alpha-sig.figma.com/img/073e/0a2a/fc2758da57ec1cfd3b55fb79d81c9c7c?Expires=1721001600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=SpVLgh6sM5suArBJfK8rhX0xVHzP9UtI~DYzMhnY3jTJ8nmboocPqtsErLBfc1tJoph417Fq~FIKt3IjZF62yZm23qdnwDcUGgxE30E63YSwpuvshnD5fMaf0SWaSzbS3l0Bdx3vypuLh7-M4lwQxHZb9ux7FodG~sFLd6K3It8kpW~ZEFsleD8L9jSK4g4aPMpqD6c2zSLkNDbksOuzodTtWg5B7TYY5iQDYuK2ZYdG1hTBWy5hMk3uzvWuL4udXMmcjeC3diLHWgGOklW3iSntkHpckdE2PAa43AZfalruMo871l6Kf0HzN18EjxcH2U4AANst5slEUjOfjjchtw__"
+
+        const val PNG = "https://vimos.ru/u/shop/238/orig/23882485_2ce7b052b97a8bc8264136319fa4425f07e93a40e0b582435f3be5cd05ca56ce.png"
 
         fun test(): UiProduct {
             return UiProduct(
@@ -29,7 +29,7 @@ data class UiProduct(
                 price = Random.nextInt(),
                 priceOld = Random.nextInt(),
                 sizeDiscount = Random.nextInt(),
-                images = listOf(TOM)
+                images = listOf(PNG)
             )
         }
     }
