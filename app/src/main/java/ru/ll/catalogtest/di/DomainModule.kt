@@ -4,6 +4,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.ll.catalogtest.data.Converter
 import ru.ll.catalogtest.data.ProductsRepositoryImpl
 import ru.ll.catalogtest.data.SubCategoriesRepositoryImpl
@@ -11,6 +15,7 @@ import ru.ll.catalogtest.domain.ProductsRepository
 import ru.ll.catalogtest.domain.SubCategoriesRepository
 import ru.ll.catalogtest.domain.api.CategoriesApi
 import ru.ll.catalogtest.domain.api.ProductApi
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -39,5 +44,40 @@ object DomainModule {
         converter: Converter
     ): SubCategoriesRepository {
         return SubCategoriesRepositoryImpl(productApi, converter)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(
+                HttpLoggingInterceptor {
+                    Timber.tag("OkHttp").d(it)
+                }.apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+            )
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient
+    ): Retrofit {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl("https://vimos.ru:1480/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCategoriesApi(
+        retrofit: Retrofit
+    ): CategoriesApi {
+        return retrofit.create(CategoriesApi::class.java)
     }
 }
