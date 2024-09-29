@@ -1,9 +1,11 @@
 package ru.ll.catalogtest.ui.catalog
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -11,11 +13,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -50,25 +55,26 @@ fun CatalogScreen(
         {
             Text(text = "Каталог товаров")
         }
-        val categories = viewModel.catalog.collectAsState()
-//        val categories: MutableState<List<UiCategory>> = remember {
-//            mutableStateOf(
-//                (1..10).map { UiCategory.test(1) }
-//            )
-//        }
-        categories.value?.let {
+        val categories: State<List<UiCategory>?> = viewModel.catalog.collectAsState()
+        val categoryValues = categories.value
+        if (categoryValues != null) {
             LazyColumn {
-                items(it) {
+                items(categoryValues) {
                     CatalogItem(
                         modifier = Modifier.weight(1f),
-                        it
-                    ) {
-//          TODO
-                    }
+                        category = it,
+                        onClick = onCategoryClick
+                    )
                 }
             }
-        } ?: run {
-            //TODO show progress
+        } else {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+
+            ) {
+                CircularProgressIndicator()
+            }
         }
 
         Box(modifier = Modifier.padding(16.dp, 12.dp)) {
@@ -100,15 +106,18 @@ fun CatalogItem(
     category: UiCategory,
     onClick: (UiCategory) -> Unit
 ) {
-        Row() {
-            AsyncImage(modifier = Modifier
+    Row(
+        modifier = modifier
+            .clickable(onClick = { onClick(category) })
+    ) {
+        AsyncImage(
+            modifier = Modifier
                 .size(48.dp),
-                model = "https://vimos.ru/${category.icon}",
-                contentDescription = "back",
-
-            )
-            Text(text = category.title)
-        }
+            model = "https://vimos.ru/${category.icon}",
+            contentDescription = "back"
+        )
+        Text(text = category.title)
+    }
 }
 
 

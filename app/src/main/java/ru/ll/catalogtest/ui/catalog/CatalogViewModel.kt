@@ -22,7 +22,7 @@ class CatalogViewModel @Inject constructor(
     init {
         viewModelScope.launch {
 //            TODO generate data
-            val data = productsRepository.getData()
+            val data: List<UiCategory> = productsRepository.getData()
             _catalog.emit(data)
 //            val emit = (1..10).map { UiCategory.test(3) }
 //            _catalog.emit(emit)
