@@ -14,19 +14,33 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CatalogViewModel @Inject constructor(
-    val productsRepository: ProductsRepository
+    private val productsRepository: ProductsRepository
 ) : ViewModel() {
     private val _catalog = MutableStateFlow<List<UiCategory>?>(null)
     val catalog = _catalog.asStateFlow()
 
+    private val _progress = MutableStateFlow<Boolean>(false)
+    val progress = _progress.asStateFlow()
+
+    private val _error = MutableStateFlow<String?>(null)
+    val error = _error.asStateFlow()
+
     init {
+        getData()
+    }
+
+    fun getData() {
         viewModelScope.launch {
-//            TODO generate data
-            val data: List<UiCategory> = productsRepository.getData()
-            _catalog.emit(data)
-//            val emit = (1..10).map { UiCategory.test(3) }
-//            _catalog.emit(emit)
-//            Timber.d("emit $emit")
+            try {
+                _progress.emit(true)
+                val data: List<UiCategory> = productsRepository.getData()
+                _catalog.emit(data)
+            } catch (e: Exception) {
+                Timber.e(e, "Error Catalog")
+                _error.emit(e.message ?: "Error")
+            } finally {
+                _progress.emit(false)
+            }
         }
     }
 }
