@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -30,6 +33,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.domain.UiCategory
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
+import timber.log.Timber
 
 @Preview
 @Composable
@@ -48,7 +52,10 @@ fun CatalogScreen(
 ) {
 
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         Toolbar()
         val categories: State<List<UiCategory>?> = viewModel.catalog.collectAsStateWithLifecycle()
         val categoryValues = categories.value
@@ -64,6 +71,7 @@ fun CatalogScreen(
             onRefresh = viewModel::getData
         ) {
             if (categoryValues != null) {
+                Timber.i("categoryValues $categoryValues")
                 LazyColumn {
                     items(categoryValues) {
                         CatalogItem(
@@ -75,14 +83,23 @@ fun CatalogScreen(
                 }
             }
             if (textErrorMessage != null) {
-                Text(
+                Timber.i("textErrorMessage $textErrorMessage")
+                Column(
                     modifier = Modifier
-                        .padding(16.dp)
-                        .background(color = MaterialTheme.colorScheme.background)
-                        .fillMaxSize(),
-                    text = textErrorMessage,
-                    textAlign = TextAlign.Center
-                )
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .background(color = MaterialTheme.colorScheme.background)
+                            .fillMaxWidth(),
+                        text = textErrorMessage,
+                        textAlign = TextAlign.Center
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                }
             }
         }
     }

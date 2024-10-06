@@ -33,6 +33,7 @@ class CatalogViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _progress.emit(true)
+                _error.emit(null)
                 val data: List<UiCategory> = productsRepository.getData()
                 _catalog.emit(data)
             } catch (e: Exception) {
