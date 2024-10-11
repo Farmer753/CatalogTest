@@ -1,7 +1,6 @@
 package ru.ll.catalogtest.domain
 
 import kotlinx.serialization.Serializable
-import kotlin.random.Random
 
 @Serializable
 data class UiCategory(
@@ -20,17 +19,15 @@ data class UiCategory(
 ) {
     companion object {
         const val ESKARO = "https://vimos.ru/u/category/ObEcDB_1685695466.png"
-        fun test(level:Int): UiCategory {
+        fun default(hasSubCategories: Boolean): UiCategory {
             return UiCategory(
                 title = "Заголовок",
                 slug = "Слаг",
                 icon = ESKARO,
-//                subCategories = listOf()
-                subCategories = if (level!=0&&Random.nextBoolean()) {
-                    listOf()
+                subCategories = if (hasSubCategories) {
+                    listOf(default(false), default(false))
                 } else {
-                    (0..Random.nextInt(5)).map { test(level-1) }
-//                    listOf(test(0), test(0))
+                    listOf()
                 }
             )
         }

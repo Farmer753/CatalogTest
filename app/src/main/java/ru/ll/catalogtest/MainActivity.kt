@@ -19,6 +19,7 @@ import ru.ll.catalogtest.ui.catalog.CatalogScreen
 import ru.ll.catalogtest.ui.categoryproducts.CategoryProductsScreen
 import ru.ll.catalogtest.ui.product.ProductScreen
 import ru.ll.catalogtest.ui.serializableType
+import ru.ll.catalogtest.ui.subcatalog.SubCatalogScreen
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
 import timber.log.Timber
 import java.net.URLDecoder
@@ -54,24 +55,25 @@ class MainActivity : ComponentActivity() {
                             },
                             onCategoryClick = { category ->
                                 Timber.d("CatalogScreen onCategoryClick $category")
-
                                 navController.navigate(SubCatalog(category))
                             }
                         )
                     }
                     composable<SubCatalog>(
                         typeMap = mapOf(typeOf<UiCategory>() to serializableType<UiCategory>())
-                    ) {
-//                        SubCatalogScreen(
-//                            onCategorySlugClick = { categorySlug ->
-//                                Timber.d("SubCatalogScreen onCategorySlugClick $categorySlug")
-//                                navController.navigate(CategoryProducts(categorySlug))
-//                            },
-//                            onCategoryClick = { category ->
-//                                Timber.d("SubCatalogScreen onCategoryClick $category")
-//                                navController.navigate(SubCatalog(category))
-//                            }
-//                        )
+                    ) { backStackEntry ->
+                        val subCatalog: SubCatalog = backStackEntry.toRoute()
+                        SubCatalogScreen(
+                            onCategorySlugClick = { categorySlug ->
+                                Timber.d("SubCatalogScreen onCategorySlugClick $categorySlug")
+                                navController.navigate(CategoryProducts(categorySlug))
+                            },
+                            onCategoryClick = { category ->
+                                Timber.d("SubCatalogScreen onCategoryClick $category")
+                                navController.navigate(SubCatalog(category))
+                            },
+                            uiCategory = subCatalog.uiCategory
+                        )
                     }
                     composable<CategoryProducts> { backStackEntry ->
                         Timber.d("CategoryProducts 75")

@@ -1,5 +1,6 @@
 package ru.ll.catalogtest.data
 
+import android.util.Base64
 import ru.ll.catalogtest.domain.UiCategory
 import ru.ll.catalogtest.domain.UiProduct
 import ru.ll.catalogtest.domain.api.NwCategory
@@ -12,7 +13,8 @@ class Converter {
 //            seoTitle = nwCategory.seoTitle,
             slug = nwCategory.slug,
 //            depth = nwCategory.depth,
-            icon = nwCategory.icon,
+//            icon = nwCategory.icon,
+            icon = Base64.encodeToString(nwCategory.icon.toByteArray(), Base64.DEFAULT),
 //            webpIcon = nwCategory.webpIcon,
 //            description = nwCategory.description,
 //            seoDescription = nwCategory.seoDescription,
