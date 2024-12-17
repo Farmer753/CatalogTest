@@ -2,6 +2,7 @@ package ru.ll.catalogtest.ui.components
 
 import android.util.Base64
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -11,17 +12,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.domain.UiCategory
+import ru.ll.catalogtest.ui.theme.CatalogTestTheme
 import timber.log.Timber
 
 //TODO show/not icon
+
 @Composable
 fun CatalogItem(
     modifier: Modifier = Modifier,
     category: UiCategory,
-    onClick: (UiCategory) -> Unit
+    onClick: (UiCategory) -> Unit,
+    setColorFilter: Boolean
 ) {
     Row(
         modifier = modifier
@@ -36,12 +41,35 @@ fun CatalogItem(
                 String(Base64.decode(category.icon.toByteArray(), Base64.DEFAULT))
             }",
             contentDescription = "back",
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+            colorFilter = if (setColorFilter) {
+                ColorFilter.tint(MaterialTheme.colorScheme.primary)
+            } else {
+                null
+            }
         )
         Text(
             modifier = Modifier
                 .align(Alignment.CenterVertically),
             text = category.title
         )
+    }
+}
+
+@Composable
+@Preview
+fun CatalogItemPreview() {
+    CatalogTestTheme {
+        Column {
+            CatalogItem(
+                category = UiCategory.default(false),
+                onClick = {},
+                setColorFilter = true
+            )
+            CatalogItem(
+                category = UiCategory.default(false),
+                onClick = {},
+                setColorFilter = false
+            )
+        }
     }
 }

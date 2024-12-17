@@ -1,5 +1,6 @@
 package ru.ll.catalogtest.domain
 
+import android.util.Base64
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -23,7 +24,8 @@ data class UiCategory(
             return UiCategory(
                 title = "Заголовок",
                 slug = "Слаг",
-                icon = ESKARO,
+//                icon = ESKARO,
+                icon = Base64.encodeToString("u/category/ObEcDB_1685695466.png".toByteArray(), Base64.DEFAULT),
                 subCategories = if (hasSubCategories) {
                     listOf(default(false), default(false))
                 } else {

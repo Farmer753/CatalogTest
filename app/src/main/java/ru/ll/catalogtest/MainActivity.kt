@@ -70,7 +70,11 @@ class MainActivity : ComponentActivity() {
                             },
                             onCategoryClick = { category ->
                                 Timber.d("SubCatalogScreen onCategoryClick $category")
-                                navController.navigate(SubCatalog(category))
+                                if (category.subCategories.isEmpty()){
+                                    navController.navigate(CategoryProducts(category.slug))
+                                }else{
+                                    navController.navigate(SubCatalog(category))
+                                }
                             },
                             uiCategory = subCatalog.uiCategory
                         )

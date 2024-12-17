@@ -2,6 +2,7 @@ package ru.ll.catalogtest.ui.categoryproducts
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -51,7 +52,7 @@ fun CategoryProductsScreen(
     categorySlug: String,
     onProductClick: (UiProduct) -> Unit = {}
 ) {
-    Column {
+    Column(modifier = Modifier.background(color = Color.Yellow)) {
         val products: MutableState<List<UiProduct>> = remember {
             mutableStateOf(
                 (1..100).map { test() }

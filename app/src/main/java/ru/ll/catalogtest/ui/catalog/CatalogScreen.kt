@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -50,6 +51,7 @@ fun CatalogScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = Color.Magenta)
     ) {
         Toolbar()
         val categories: State<List<UiCategory>?> = viewModel.catalog.collectAsStateWithLifecycle()
@@ -71,7 +73,8 @@ fun CatalogScreen(
                         CatalogItem(
                             modifier = Modifier.fillMaxWidth(),
                             category = it,
-                            onClick = onCategoryClick
+                            onClick = onCategoryClick,
+                            setColorFilter = true
                         )
                     }
                 }
