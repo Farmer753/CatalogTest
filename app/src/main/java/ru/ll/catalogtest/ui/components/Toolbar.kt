@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.IconButton
@@ -58,6 +59,7 @@ fun Toolbar(
         modifier = Modifier
             .background(backgroundColor)
             .fillMaxWidth()
+            .height(56.dp)
     ) {
         if (startIcon != null) {
             IconButton(

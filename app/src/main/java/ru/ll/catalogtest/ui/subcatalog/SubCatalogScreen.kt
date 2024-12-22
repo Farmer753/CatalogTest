@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.ll.catalogtest.domain.UiCategory
 import ru.ll.catalogtest.ui.components.CatalogItem
+import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
 
 @Preview
@@ -46,7 +47,11 @@ fun SubCatalogScreen(
             .fillMaxSize()
             .background(color = Color.Cyan)
     ) {
-        Toolbar()
+        Toolbar(
+            startIcon = null,
+            title = "Каталог товаров",
+            endIcon = null
+        )
         //TODO title
         //TODO backButton
         LazyColumn {
@@ -62,23 +67,23 @@ fun SubCatalogScreen(
     }
 }
 
-@Composable
-private fun Toolbar() {
-    Box(
-        modifier = Modifier
-            .height(56.dp)
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primary)
-            .padding(start = 16.dp),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        Text(
-            text = "Каталог товаров",
-            color = MaterialTheme.colorScheme.onPrimary,
-            fontSize = 22.sp
-        )
-    }
-}
+//@Composable
+//private fun Toolbar() {
+//    Box(
+//        modifier = Modifier
+//            .height(56.dp)
+//            .fillMaxWidth()
+//            .background(MaterialTheme.colorScheme.primary)
+//            .padding(start = 16.dp),
+//        contentAlignment = Alignment.CenterStart
+//    ) {
+//        Text(
+//            text = "Каталог товаров",
+//            color = MaterialTheme.colorScheme.onPrimary,
+//            fontSize = 22.sp
+//        )
+//    }
+//}
 
 
 
