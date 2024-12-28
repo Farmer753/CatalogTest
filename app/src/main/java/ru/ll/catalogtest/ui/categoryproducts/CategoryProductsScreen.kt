@@ -35,6 +35,7 @@ import coil.compose.AsyncImage
 import ru.ll.catalogtest.R
 import ru.ll.catalogtest.domain.UiProduct
 import ru.ll.catalogtest.domain.UiProduct.Companion.test
+import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.debugPlaceholder
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
 
@@ -43,16 +44,22 @@ import ru.ll.catalogtest.ui.theme.CatalogTestTheme
 @Composable
 fun CategoryProductsPreview() {
     CatalogTestTheme {
-        CategoryProductsScreen("")
+        CategoryProductsScreen("", onBackClick = {})
     }
 }
 
 @Composable
 fun CategoryProductsScreen(
     categorySlug: String,
-    onProductClick: (UiProduct) -> Unit = {}
+    onProductClick: (UiProduct) -> Unit = {},
+    onBackClick: () -> Unit
 ) {
     Column(modifier = Modifier.background(color = Color.Yellow)) {
+        Toolbar(
+            title = "Каталог товаров",
+            endIcon = null,
+            onStartIconClick = onBackClick
+        )
         val products: MutableState<List<UiProduct>> = remember {
             mutableStateOf(
                 (1..100).map { test() }

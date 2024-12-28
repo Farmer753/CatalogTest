@@ -70,11 +70,14 @@ class MainActivity : ComponentActivity() {
                             },
                             onCategoryClick = { category ->
                                 Timber.d("SubCatalogScreen onCategoryClick $category")
-                                if (category.subCategories.isEmpty()){
+                                if (category.subCategories.isEmpty()) {
                                     navController.navigate(CategoryProducts(category.slug))
-                                }else{
+                                } else {
                                     navController.navigate(SubCatalog(category))
                                 }
+                            },
+                            onBackClick = {
+                                navController.popBackStack()
                             },
                             uiCategory = subCatalog.uiCategory
                         )
@@ -83,20 +86,26 @@ class MainActivity : ComponentActivity() {
                         Timber.d("CategoryProducts 75")
                         val categoryProduct: CategoryProducts = backStackEntry.toRoute()
                         Timber.d("CategoryProducts 77")
-                        CategoryProductsScreen(categoryProduct.categorySlug) { uiProduct ->
-                            Timber.d("CategoryProducts onProductClick $uiProduct")
-                            navController.navigate(
-                                Product(
-                                    uiProduct.copy(
-                                        images = uiProduct.images.map {
-                                            URLEncoder.encode(
-                                                it, Charsets.UTF_8.name()
-                                            )
-                                        }
+                        CategoryProductsScreen(
+                            categorySlug = categoryProduct.categorySlug,
+                            onProductClick = { uiProduct ->
+                                Timber.d("CategoryProducts onProductClick $uiProduct")
+                                navController.navigate(
+                                    Product(
+                                        uiProduct.copy(
+                                            images = uiProduct.images.map {
+                                                URLEncoder.encode(
+                                                    it, Charsets.UTF_8.name()
+                                                )
+                                            }
+                                        )
                                     )
                                 )
-                            )
-                        }
+                            },
+                            onBackClick = {
+                                navController.popBackStack()
+                            }
+                        )
                     }
                     composable<Product>(
                         typeMap = mapOf(typeOf<UiProduct>() to serializableType<UiProduct>())
@@ -109,7 +118,9 @@ class MainActivity : ComponentActivity() {
                         )
                         Timber.d("product.product ${product.product} ")
                         Timber.d("to ProductScreen uiProduct $uiProduct ")
-                        ProductScreen()
+                        ProductScreen(onBackClick = {
+                            navController.popBackStack()
+                        })
                     }
                 }
             }

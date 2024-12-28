@@ -28,55 +28,32 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.R
 import ru.ll.catalogtest.domain.UiProduct
+import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.debugPlaceholder
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
-
 
 
 @Preview
 @Composable
 fun ProductPreview() {
     CatalogTestTheme {
-        ProductScreen()
+        ProductScreen(onBackClick = {})
     }
 }
 
 @Composable
-fun ProductScreen() {
+fun ProductScreen(
+    onBackClick: () -> Unit
+) {
 
     Column(modifier = Modifier) {
-        Row {
-            Box(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .weight(1f)
-                    .wrapContentHeight()
-            ) {
+        Toolbar(
+            contentColor = Color.Gray,
+            title = "Карточка товара",
+            backgroundColor = Color.White,
+            onStartIconClick = onBackClick
 
-                Image(
-                    painter = painterResource(id = R.drawable.vector),
-                    contentDescription = "back",
-                    modifier = Modifier
-                        .padding(10.dp)
-                )
-            }
-
-            Box(
-                modifier = Modifier
-                    .padding(16.dp)
-//                    .wrapContentWidth()
-                    .wrapContentHeight()
-            ) {
-
-                Image(
-                    painter = painterResource(id = R.drawable.share_symbol),
-                    contentDescription = "back",
-                    modifier = Modifier
-                        .padding(10.dp)
-                )
-            }
-        }
-        Divider(color = Color.Black, thickness = 1.dp)
+        )
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
