@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.R
 import ru.ll.catalogtest.domain.UiProduct
@@ -51,6 +52,9 @@ fun CategoryProductsPreview() {
 @Composable
 fun CategoryProductsScreen(
     categorySlug: String,
+    viewModel: CategoryProductsViewModel = hiltViewModel<CategoryProductsViewModel, CategoryProductsViewModel.Factory>(
+        creationCallback = { factory -> factory.create(slug = categorySlug) }
+    ),
     onProductClick: (UiProduct) -> Unit = {},
     onBackClick: () -> Unit
 ) {

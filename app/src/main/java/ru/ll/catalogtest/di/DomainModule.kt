@@ -9,10 +9,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.ll.catalogtest.data.Converter
+import ru.ll.catalogtest.data.CategoryRepositoryImpl
 import ru.ll.catalogtest.data.ProductsRepositoryImpl
-import ru.ll.catalogtest.data.SubCategoriesRepositoryImpl
+import ru.ll.catalogtest.domain.CategoryRepository
 import ru.ll.catalogtest.domain.ProductsRepository
-import ru.ll.catalogtest.domain.SubCategoriesRepository
 import ru.ll.catalogtest.domain.api.CategoriesApi
 import ru.ll.catalogtest.domain.api.ProductApi
 import timber.log.Timber
@@ -30,20 +30,20 @@ object DomainModule {
 
     @Provides
     @Singleton
-    fun provideProductsRepository(
+    fun provideCategoryRepository(
         categoriesApi: CategoriesApi,
         converter: Converter
-    ): ProductsRepository {
-        return ProductsRepositoryImpl(categoriesApi, converter)
+    ): CategoryRepository {
+        return CategoryRepositoryImpl(categoriesApi, converter)
     }
 
     @Provides
     @Singleton
-    fun provideSubCategoriesRepository(
+    fun provideProductsRepository(
         productApi: ProductApi,
         converter: Converter
-    ): SubCategoriesRepository {
-        return SubCategoriesRepositoryImpl(productApi, converter)
+    ): ProductsRepository {
+        return ProductsRepositoryImpl(productApi, converter)
     }
 
     @Provides
@@ -79,5 +79,13 @@ object DomainModule {
         retrofit: Retrofit
     ): CategoriesApi {
         return retrofit.create(CategoriesApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideProductsApi(
+        retrofit: Retrofit
+    ): ProductApi {
+        return retrofit.create(ProductApi::class.java)
     }
 }

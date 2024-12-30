@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ru.ll.catalogtest.domain.ProductsRepository
+import ru.ll.catalogtest.domain.CategoryRepository
 import ru.ll.catalogtest.domain.UiCategory
 import timber.log.Timber
 import javax.inject.Inject
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CatalogViewModel @Inject constructor(
-    private val productsRepository: ProductsRepository
+    private val categoryRepository: CategoryRepository
 ) : ViewModel() {
     private val _catalog = MutableStateFlow<List<UiCategory>?>(null)
     val catalog = _catalog.asStateFlow()
@@ -34,7 +34,7 @@ class CatalogViewModel @Inject constructor(
             try {
                 _progress.emit(true)
                 _error.emit(null)
-                val data: List<UiCategory> = productsRepository.getData()
+                val data: List<UiCategory> = categoryRepository.getData()
                 _catalog.emit(data)
             } catch (e: Exception) {
                 Timber.e(e, "Error Catalog")
