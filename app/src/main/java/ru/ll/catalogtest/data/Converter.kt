@@ -30,7 +30,7 @@ class Converter {
             id = nwProduct.id,
             title = nwProduct.title,
             slug = nwProduct.slug,
-            sky = nwProduct.sky,
+            sku = nwProduct.sku,
             description = nwProduct.description,
             price = nwProduct.purchase.price,
             priceOld = nwProduct.purchase.priceOld,

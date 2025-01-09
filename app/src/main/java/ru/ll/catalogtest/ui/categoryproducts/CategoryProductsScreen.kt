@@ -16,15 +16,11 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -32,13 +28,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.R
 import ru.ll.catalogtest.domain.UiProduct
-import ru.ll.catalogtest.domain.UiProduct.Companion.test
 import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.debugPlaceholder
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
+import ru.ll.catalogtest.ui.theme.Sale
 
 
 @Preview
@@ -64,16 +61,19 @@ fun CategoryProductsScreen(
             endIcon = null,
             onStartIconClick = onBackClick
         )
-        val products: MutableState<List<UiProduct>> = remember {
-            mutableStateOf(
-                (1..100).map { test() }
-            )
-        }
-        Products(
-            modifier = Modifier.weight(1f),
-            products.value
-        ) {
-            onProductClick(it)
+//        val products: MutableState<List<UiProduct>> = remember {
+//            mutableStateOf(
+//                (1..100).map { test() }
+//            )
+//        }
+        val products = viewModel.catalog.collectAsStateWithLifecycle()
+        if (products.value != null) {
+            Products(
+                modifier = Modifier.weight(1f),
+                products.value!!
+            ) {
+                onProductClick(it)
+            }
         }
     }
 }
@@ -111,20 +111,20 @@ fun Product(
             Column {
                 Box(modifier = Modifier.padding(16.dp, 12.dp)) {
                     AsyncImage(
-                        model = UiProduct.PNG,
+                        model = "https://vimos.ru/${product.images.first()}",
                         contentDescription = "test",
                         placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
                         modifier = Modifier
                             .size(114.dp, 101.dp)
 
                     )
-                    Button(
-                        onClick = { },
-                        modifier = Modifier.size(72.dp, 35.dp),
-                        shape = MaterialTheme.shapes.medium
-                    ) {
+                    if (product.sizeDiscount != 0.0) {
                         Text(
-                            text = "-15%",
+                            modifier = Modifier.background(
+                                color = Sale,
+                                shape = MaterialTheme.shapes.medium
+                            ),
+                            text = "-${product.sizeDiscount}%",
                             color = Color.White
                         )
                     }
@@ -148,11 +148,11 @@ fun Product(
             ) {
 
                 Text(
-                    text = "Арт. 24764168",
+                    text = "Арт. ${product.sku}",
 //                    style = MaterialTheme.typography.body1.copy(color = Dark60)
                 )
                 Text(
-                    text = "Блок фундаментный бетоный 190х190х390мм",
+                    text = product.title,
 //                    style = MaterialTheme.typography.h6
                 )
                 Row {

@@ -8,11 +8,11 @@ data class UiProduct(
     val id: Int,
     val title: String,
     val slug: String,
-    val sky: Int,
+    val sku: Int,
     val description: String?,
     val price: Int,
     val priceOld: Int,
-    val sizeDiscount: Int,
+    val sizeDiscount: Double,
     val images: List<String>
 ) {
     companion object {
@@ -24,11 +24,11 @@ data class UiProduct(
                 id = Random.nextInt(),
                 title = "Название ${Random.nextInt()}",
                 slug = "Заголовок ${Random.nextInt()}",
-                sky = Random.nextInt(),
+                sku = Random.nextInt(),
                 description = "Описание ${Random.nextInt()}",
                 price = Random.nextInt(),
                 priceOld = Random.nextInt(),
-                sizeDiscount = Random.nextInt(),
+                sizeDiscount = Random.nextDouble(),
                 images = listOf(PNG)
             )
         }

@@ -29,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.ll.catalogtest.domain.UiCategory
 import ru.ll.catalogtest.ui.components.CatalogItem
+import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
 import timber.log.Timber
 
@@ -53,7 +54,11 @@ fun CatalogScreen(
             .fillMaxSize()
             .background(color = Color.Magenta)
     ) {
-        Toolbar()
+        Toolbar(
+            title = "Каталог товаров",
+            endIcon = null,
+            startIcon = null
+        )
         val categories: State<List<UiCategory>?> = viewModel.catalog.collectAsStateWithLifecycle()
         val categoryValues = categories.value
         val errorMessage = viewModel.error.collectAsStateWithLifecycle()
@@ -102,23 +107,7 @@ fun CatalogScreen(
     }
 }
 
-@Composable
-private fun Toolbar() {
-    Box(
-        modifier = Modifier
-            .height(56.dp)
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primary)
-            .padding(start = 16.dp),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        Text(
-            text = "Каталог товаров",
-            color = MaterialTheme.colorScheme.onPrimary,
-            fontSize = 22.sp
-        )
-    }
-}
+
 
 
 
