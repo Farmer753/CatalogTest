@@ -9,7 +9,7 @@ data class UiProduct(
     val title: String,
     val slug: String,
     val sky: Int,
-    val description: String,
+    val description: String?,
     val price: Int,
     val priceOld: Int,
     val sizeDiscount: Int,

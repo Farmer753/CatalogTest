@@ -7,7 +7,7 @@ data class NwProduct(
     val title: String,
     val slug: String,
     val sky: Int,
-    val description: String,
+    val description: String?,
     val purchase: NwPurchase,
     val images: List<NwProductImage>
 )
