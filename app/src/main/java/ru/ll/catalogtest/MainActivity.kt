@@ -112,9 +112,9 @@ class MainActivity : ComponentActivity() {
                     ) { backStackEntry ->
                         val product: Product = backStackEntry.toRoute()
                         val uiProduct = product.product.copy(
-                            images = product.product.images.map {
-                                URLDecoder.decode(it, Charsets.UTF_8.name())
-                            }
+//                            images = product.product.images.map {
+//                                URLDecoder.decode(it, Charsets.UTF_8.name())
+//                            }
                         )
                         Timber.d("product.product ${product.product} ")
                         Timber.d("to ProductScreen uiProduct $uiProduct ")
