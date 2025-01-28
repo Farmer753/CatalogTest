@@ -22,8 +22,6 @@ import ru.ll.catalogtest.ui.serializableType
 import ru.ll.catalogtest.ui.subcatalog.SubCatalogScreen
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
 import timber.log.Timber
-import java.net.URLDecoder
-import java.net.URLEncoder
 import kotlin.reflect.typeOf
 
 @AndroidEntryPoint
@@ -39,7 +37,7 @@ class MainActivity : ComponentActivity() {
     data class CategoryProducts(val categorySlug: String)
 
     @Serializable
-    data class Product(val product: UiProduct)
+    data class Product(val productSlug: String)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,13 +90,7 @@ class MainActivity : ComponentActivity() {
                                 Timber.d("CategoryProducts onProductClick $uiProduct")
                                 navController.navigate(
                                     Product(
-                                        uiProduct.copy(
-                                            images = uiProduct.images.map {
-                                                URLEncoder.encode(
-                                                    it, Charsets.UTF_8.name()
-                                                )
-                                            }
-                                        )
+                                        uiProduct.slug
                                     )
                                 )
                             },
@@ -110,17 +102,15 @@ class MainActivity : ComponentActivity() {
                     composable<Product>(
                         typeMap = mapOf(typeOf<UiProduct>() to serializableType<UiProduct>())
                     ) { backStackEntry ->
+                        Timber.d("Логи")
                         val product: Product = backStackEntry.toRoute()
-                        val uiProduct = product.product.copy(
-//                            images = product.product.images.map {
-//                                URLDecoder.decode(it, Charsets.UTF_8.name())
-//                            }
-                        )
-                        Timber.d("product.product ${product.product} ")
-                        Timber.d("to ProductScreen uiProduct $uiProduct ")
-                        ProductScreen(onBackClick = {
-                            navController.popBackStack()
-                        })
+                        val productSlug = product.productSlug
+                        Timber.d("to ProductScreen productSlug $productSlug ")
+                        ProductScreen(
+                            productSlug = productSlug,
+                            onBackClick = {
+                                navController.popBackStack()
+                            })
                     }
                 }
             }

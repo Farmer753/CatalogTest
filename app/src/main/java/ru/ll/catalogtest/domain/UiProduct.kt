@@ -16,8 +16,8 @@ data class UiProduct(
     val price: Int,
     val priceOld: Int,
     val sizeDiscount: Double,
-//    val images: List< @Serializable(with = FuckingStringSerializer::class)String>
-    val images: List<String>
+    val images: List< @Serializable(with = FuckingStringSerializer::class)String>
+//    val images: List<String>
 ) {
     companion object {
 
