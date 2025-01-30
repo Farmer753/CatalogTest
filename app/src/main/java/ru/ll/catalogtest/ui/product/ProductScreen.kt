@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -36,7 +35,9 @@ import ru.ll.catalogtest.R
 import ru.ll.catalogtest.domain.UiProduct
 import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.debugPlaceholder
+import ru.ll.catalogtest.ui.theme.Accent
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
+import ru.ll.catalogtest.ui.theme.Sale
 import timber.log.Timber
 
 
@@ -85,7 +86,7 @@ fun ProductScreen(
             ) {
                 if (product != null) {
                     Timber.i("product $product")
-                    ProductView()
+                    ProductView(product)
                 }
                 if (textErrorMessage != null) {
                     Timber.i("textErrorMessage $textErrorMessage")
@@ -104,6 +105,43 @@ fun ProductScreen(
             }
         }
 
+    }
+}
+
+@Composable
+fun ColumnScope.ProductView(
+    product: UiProduct
+) {
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .weight(1f)
+    ) {
+        //TODO листание картинок
+        AsyncImage(
+            model = "https://vimos.ru/${product.images.first()}",
+            contentDescription = "test",
+            placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+        )
+        PointsView()
+        if (product.sizeDiscount != 0.0) {
+            Text(
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .background(
+                        color = Accent,
+                        shape = MaterialTheme.shapes.medium
+                    )
+                    .padding(8.dp),
+                text = "-${product.sizeDiscount}%",
+                color = Color.White
+            )
+        }
+        ProductTitleView()
+        ProductDetailsView()
     }
 }
 
@@ -198,37 +236,6 @@ fun PointsView() {
 
 }
 
-@Composable
-fun ColumnScope.ProductView() {
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .weight(1f)
-    ) {
-        AsyncImage(
-            model = UiProduct.PNG,
-            contentDescription = "test",
-            placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-        )
-        PointsView()
-        Box(modifier = Modifier.padding(16.dp, 12.dp)) {
-            Button(
-                onClick = { },
-                modifier = Modifier.size(86.dp, 42.dp),
-                shape = MaterialTheme.shapes.medium
-            ) {
-                Text(
-                    text = "-15%",
-                    color = Color.White
-                )
-            }
-        }
-        ProductTitleView()
-        ProductDetailsView()
-    }
-}
+
 
 
