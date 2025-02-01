@@ -157,6 +157,7 @@ fun Product(
                 )
                 Row {
                     Text(
+                        //TODO исправить цены
                         text = "2 200 P",
 //                        style = MaterialTheme.typography.body1.copy(color = Dark60),
                         modifier = Modifier

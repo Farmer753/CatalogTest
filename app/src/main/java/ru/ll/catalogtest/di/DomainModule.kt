@@ -1,5 +1,7 @@
 package ru.ll.catalogtest.di
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -8,8 +10,8 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import ru.ll.catalogtest.data.Converter
 import ru.ll.catalogtest.data.CategoryRepositoryImpl
+import ru.ll.catalogtest.data.Converter
 import ru.ll.catalogtest.data.ProductsRepositoryImpl
 import ru.ll.catalogtest.domain.CategoryRepository
 import ru.ll.catalogtest.domain.ProductsRepository
@@ -69,7 +71,13 @@ object DomainModule {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://vimos.ru:1480/")
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(
+                MoshiConverterFactory.create(
+                    Moshi.Builder()
+                        .add(KotlinJsonAdapterFactory())
+                        .build()
+                )
+            )
             .build()
     }
 

@@ -63,7 +63,7 @@ fun ProductScreen(
     Column(modifier = Modifier) {
         Toolbar(
             contentColor = Color.Gray,
-            title = "Карточка товара",
+            title = null,
             backgroundColor = Color.White,
             onStartIconClick = onBackClick
         )
@@ -140,36 +140,36 @@ fun ColumnScope.ProductView(
                 color = Color.White
             )
         }
-        ProductTitleView()
-        ProductDetailsView()
+        ProductTitleView(product)
+        ProductDetailsView(product)
     }
 }
 
 @Composable
-fun ProductTitleView() {
+fun ProductTitleView(product: UiProduct) {
     Column(
         modifier = Modifier.padding(16.dp, 24.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
 
         Text(
-            text = "Арт. 24764168",
+            text = "Арт. ${product.sku}",
 //            style = MaterialTheme.typography.body1.copy(color = Dark60)
         )
         Text(
-            text = "Грунтовка Eskaro Aquastop Contact адгез. для невпит./поверх. 1,5 кг",
+            text = product.title,
 //            style = MaterialTheme.typography.h4
         )
     }
 }
 
 @Composable
-fun ProductDetailsView() {
+fun ProductDetailsView(product: UiProduct) {
     Row(
         modifier = Modifier.padding(16.dp, 13.dp)
     ) {
         Text(
-            text = "2 200 P",
+            text = "${product.price/100.0} P",
 //            style = MaterialTheme.typography.body1.copy(color = Dark60),
             modifier = Modifier
                 .weight(1f)
@@ -178,7 +178,7 @@ fun ProductDetailsView() {
         )
         Box(modifier = Modifier.padding(8.dp)) {
             Text(
-                text = "2 500 P",
+                text = "${product.priceOld/100.0} P",
 //                style = MaterialTheme.typography.body1,
                 modifier = Modifier
                     .wrapContentWidth()

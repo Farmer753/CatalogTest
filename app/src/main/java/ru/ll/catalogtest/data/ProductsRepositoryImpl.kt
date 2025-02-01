@@ -18,6 +18,7 @@ class ProductsRepositoryImpl(
     override suspend fun getProduct(slug: String): UiProduct {
         return productApi.getProduct(slug).let {
             converter.convert(it)
+            //TODO убрать
         }.copy(sizeDiscount = 5.5)
     }
 

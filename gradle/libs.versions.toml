@@ -5,6 +5,7 @@ coreKtx = "1.13.1"
 lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.2"
 composeBom = "2024.09.03"
+moshiVersion = "1.15.2"
 timber = "5.0.1"
 retrofit = "2.9.0"
 retrofit-adapter = "3.0.0"
@@ -28,6 +29,7 @@ androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+squareup-moshi = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshiVersion" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 adapter = { group = "com.github.akarnokd", name = "rxjava3-retrofit-adapter", version.ref = "retrofit-adapter" }

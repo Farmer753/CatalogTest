@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.okhttp)
 //    moshi
     implementation(libs.moshi)
+    implementation(libs.squareup.moshi)
 //logging-interceptor
     implementation(libs.interceptor)
     //    coil

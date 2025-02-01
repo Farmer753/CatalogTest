@@ -10,7 +10,7 @@ data class NwCategory(
     val depth: Int,
     val icon: String,
     @Json(name = "webp_icon")
-    val webpIcon: String,
+    val webpIcon: String?,
     val description: String?,
     @Json(name = "seo_description")
     val seoDescription: String?,
