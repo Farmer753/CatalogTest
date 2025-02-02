@@ -22,11 +22,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -37,7 +43,6 @@ import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.debugPlaceholder
 import ru.ll.catalogtest.ui.theme.Accent
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
-import ru.ll.catalogtest.ui.theme.Sale
 import timber.log.Timber
 
 
@@ -124,10 +129,10 @@ fun ColumnScope.ProductView(
             placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
+                .height(288.dp)
         )
         PointsView()
-        if (product.sizeDiscount != 0.0) {
+        if (product.isDiscount) {
             Text(
                 modifier = Modifier
                     .padding(start = 16.dp)
@@ -169,36 +174,48 @@ fun ProductDetailsView(product: UiProduct) {
         modifier = Modifier.padding(16.dp, 13.dp)
     ) {
         Text(
-            text = "${product.price/100.0} P",
+            text = "${product.price / 100.0} P",
 //            style = MaterialTheme.typography.body1.copy(color = Dark60),
             modifier = Modifier
                 .weight(1f)
                 .wrapContentHeight()
 
         )
-        Box(modifier = Modifier.padding(8.dp)) {
-            Text(
-                text = "${product.priceOld/100.0} P",
+        if (product.isDiscount) {
+            Box(modifier = Modifier.padding(8.dp)) {
+                val textSize = remember {
+                    mutableStateOf(IntSize(0, 0))
+                }
+                Text(
+                    text = "${product.priceOld / 100.0} P",
 //                style = MaterialTheme.typography.body1,
-                modifier = Modifier
-                    .wrapContentWidth()
-                    .wrapContentHeight()
-            )
-
-            Canvas(modifier = Modifier.size(20.dp)) {
-
-                // Fetching width and height for
-                // setting start x and end y
-                val canvasWidth = size.width
-                val canvasHeight = size.height
-
-                // drawing a line between start(x,y) and end(x,y)
-                drawLine(
-                    start = Offset(x = canvasWidth, y = 0f),
-                    end = Offset(x = 0f, y = canvasHeight),
-                    color = Color.Red,
-                    strokeWidth = 5F
+                    //TODO
+                    modifier = Modifier
+                        .onSizeChanged { textSize.value = it }
                 )
+
+                Canvas(modifier = Modifier.size(
+                    with(LocalDensity.current) {
+                        DpSize(
+                            textSize.value.width.toDp(),
+                            textSize.value.height.toDp()
+                        )
+                    }
+                )) {
+
+                    // Fetching width and height for
+                    // setting start x and end y
+                    val canvasWidth = size.width
+                    val canvasHeight = size.height
+
+                    // drawing a line between start(x,y) and end(x,y)
+                    drawLine(
+                        start = Offset(x = canvasWidth * 3, y = 0f),
+                        end = Offset(x = 0f, y = canvasHeight),
+                        color = Color.Red,
+                        strokeWidth = 5F
+                    )
+                }
             }
         }
     }
