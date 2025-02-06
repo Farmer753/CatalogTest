@@ -11,11 +11,13 @@ data class UiProduct(
     val title: String,
     val slug: String,
     val sku: Int,
+    val units: String,
     @Serializable(with = FuckingStringSerializer::class)
     val description: String?,
     val price: Int,
     val priceOld: Int,
     val sizeDiscount: Double,
+    val countAvailable: Int,
     val images: List<@Serializable(with = FuckingStringSerializer::class) String>
 //    val images: List<String>
 ) {
@@ -30,10 +32,12 @@ data class UiProduct(
                 title = "Название ${Random.nextInt()}",
                 slug = "Заголовок ${Random.nextInt()}",
                 sku = Random.nextInt(),
+                units = "штуки",
                 description = "Описание ${Random.nextInt()}",
                 price = Random.nextInt(),
                 priceOld = Random.nextInt(),
                 sizeDiscount = Random.nextDouble(),
+                countAvailable = Random.nextInt(),
                 images = listOf(PNG)
             )
         }

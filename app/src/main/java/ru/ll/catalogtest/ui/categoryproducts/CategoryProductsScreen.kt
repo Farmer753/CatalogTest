@@ -1,6 +1,5 @@
 package ru.ll.catalogtest.ui.categoryproducts
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,23 +19,17 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.DpSize
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.R
 import ru.ll.catalogtest.domain.UiProduct
+import ru.ll.catalogtest.ui.components.OldPriceView
 import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.debugPlaceholder
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
@@ -85,6 +78,7 @@ fun CategoryProductsScreen(
 
 @Composable
 fun Products(
+    //TODO проверять наличие товара
     modifier: Modifier = Modifier,
     products: List<UiProduct>,
     onClick: (UiProduct) -> Unit
@@ -170,41 +164,7 @@ fun Product(
 
                     )
                     if (product.isDiscount) {
-                        Box(modifier = Modifier.weight(1f)) {
-                            val textSize = remember {
-                                mutableStateOf(IntSize(0, 0))
-                            }
-                            Text(
-                                text = "${product.priceOld / 100.0} P",
-//                            style = MaterialTheme.typography.body1,
-                                modifier = Modifier
-                                    //TODO
-                                    .onSizeChanged { textSize.value = it }
-                            )
-
-                            Canvas(modifier = Modifier.size(
-                                with(LocalDensity.current) {
-                                    DpSize(
-                                        textSize.value.width.toDp(),
-                                        textSize.value.height.toDp()
-                                    )
-                                }
-                            )) {
-
-                                // Fetching width and height for
-                                // setting start x and end y
-                                val canvasWidth = size.width
-                                val canvasHeight = size.height
-
-                                // drawing a line between start(x,y) and end(x,y)
-                                drawLine(
-                                    start = Offset(x = canvasWidth * 3, y = 0f),
-                                    end = Offset(x = 0f, y = canvasHeight),
-                                    color = Color.Red,
-                                    strokeWidth = 5F
-                                )
-                            }
-                        }
+                        OldPriceView(product.priceOld)
                     }
                 }
             }

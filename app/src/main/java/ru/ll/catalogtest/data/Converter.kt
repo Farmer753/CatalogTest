@@ -31,10 +31,12 @@ class Converter {
             title = nwProduct.title,
             slug = nwProduct.slug,
             sku = nwProduct.sku,
+            units = nwProduct.units,
             description = nwProduct.description,
             price = nwProduct.purchase.price,
             priceOld = nwProduct.purchase.priceOld,
             sizeDiscount = nwProduct.purchase.sizeDiscount,
+            countAvailable = nwProduct.purchase.countAvailable,
             images = nwProduct.images.map { it.original }
         )
     }

@@ -7,6 +7,7 @@ data class NwProduct(
     val title: String,
     val slug: String,
     val sku: Int,
+    val units: String,
     val description: String?,
     val purchase: NwPurchase,
     val images: List<NwProductImage>
@@ -14,6 +15,8 @@ data class NwProduct(
 
 data class NwPurchase(
     val price: Int,
+    @Json(name = "count_available")
+    val countAvailable: Int,
     @Json(name = "price_old")
     val priceOld: Int,
     @Json(name = "size_discount")
