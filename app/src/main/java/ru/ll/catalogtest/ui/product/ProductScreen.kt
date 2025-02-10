@@ -1,8 +1,8 @@
 package ru.ll.catalogtest.ui.product
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -12,8 +12,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -115,15 +119,40 @@ fun ColumnScope.ProductView(
             .weight(1f)
     ) {
         //TODO листание картинок
-        AsyncImage(
-            model = "https://vimos.ru/${product.images.first()}",
-            contentDescription = "test",
-            placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(288.dp)
+//        AsyncImage(
+//            model = "https://vimos.ru/${product.images.first()}",
+//            contentDescription = "test",
+//            placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(288.dp)
+//        )
+        val pagerState = rememberPagerState(
+            pageCount = { product.images.size },
         )
-        PointsView()
+
+        HorizontalPager(state = pagerState) { page ->
+//            BannerPage(
+//                banner = bannersValue[page],
+//                onBannerClicked = onBannerClicked
+//            )
+            AsyncImage(
+                model = "https://vimos.ru/${product.images[page]}",
+                contentDescription = "test",
+                placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(288.dp)
+            )
+        }
+
+        if (product.images.size > 1) {
+            PointsView(
+                modifier = Modifier.padding(top = 8.dp),
+                itemsCount = product.images.size,
+                selectedItem = pagerState.currentPage
+            )
+        }
         if (product.isDiscount) {
             Text(
                 modifier = Modifier
@@ -181,36 +210,43 @@ fun ProductDetailsView(product: UiProduct) {
 
 
 @Composable
-fun PointsView() {
+fun PointsView(
+    modifier: Modifier = Modifier,
+    itemsCount: Int,
+    selectedItem: Int,
+) {
     Row(
-        Modifier
-            .fillMaxWidth()
-            .height(100.dp)
-            .padding(5.dp)
+        modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center
     ) {
-        // Creating a Canvas to draw a Circle
-        Canvas(modifier = Modifier.size(5.dp)) {
-            drawCircle(
-                color = Color.Black,
-                radius = size.minDimension / 2
-            )
-        }
-        Canvas(modifier = Modifier.size(5.dp)) {
-            drawCircle(
-                color = Color.Gray,
-                radius = size.minDimension / 2
-            )
-        }
-        Canvas(modifier = Modifier.size(5.dp)) {
-            drawCircle(
-                color = Color.Gray,
-                radius = size.minDimension / 2
+        repeat(itemsCount) { iteration ->
+            val color =
+                if (selectedItem == iteration) {
+                    Color.DarkGray
+                } else {
+                    Color.Gray
+                }
+            Box(
+                modifier = Modifier
+                    .padding(3.dp)
+                    .background(color, CircleShape)
+                    .size(6.dp)
             )
         }
     }
-
 }
 
 
+@Preview
+@Composable
+private fun PagerIndicatorPreview() {
+    CatalogTestTheme {
+        PointsView(
+            modifier = Modifier.padding(16.dp),
+            itemsCount = 4,
+            selectedItem = 2,
+        )
+    }
+}
 
 
