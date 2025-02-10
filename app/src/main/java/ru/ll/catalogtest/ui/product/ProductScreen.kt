@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -118,24 +117,13 @@ fun ColumnScope.ProductView(
             .verticalScroll(rememberScrollState())
             .weight(1f)
     ) {
-        //TODO листание картинок
-//        AsyncImage(
-//            model = "https://vimos.ru/${product.images.first()}",
-//            contentDescription = "test",
-//            placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(288.dp)
-//        )
+
         val pagerState = rememberPagerState(
             pageCount = { product.images.size },
         )
 
         HorizontalPager(state = pagerState) { page ->
-//            BannerPage(
-//                banner = bannersValue[page],
-//                onBannerClicked = onBannerClicked
-//            )
+
             AsyncImage(
                 model = "https://vimos.ru/${product.images[page]}",
                 contentDescription = "test",
