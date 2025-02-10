@@ -33,6 +33,7 @@ import ru.ll.catalogtest.ui.components.OldPriceView
 import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.debugPlaceholder
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
+import ru.ll.catalogtest.ui.theme.Primary
 import ru.ll.catalogtest.ui.theme.Sale
 
 
@@ -166,6 +167,12 @@ fun Product(
                     if (product.isDiscount) {
                         OldPriceView(product.priceOld)
                     }
+                }
+                if (product.countAvailable > 0) {
+                    Text(
+                        text = "В наличии",
+                        style = MaterialTheme.typography.bodyLarge.copy(color = Primary)
+                    )
                 }
             }
             Divider(color = Color.Black, thickness = 1.dp)
