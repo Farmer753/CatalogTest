@@ -1,6 +1,5 @@
 package ru.ll.catalogtest.ui.components
 
-import android.util.Base64
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,9 +16,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.domain.UiCategory
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
-import timber.log.Timber
 
-//TODO show/not icon
 
 @Composable
 fun CatalogItem(
@@ -32,13 +29,12 @@ fun CatalogItem(
         modifier = modifier
             .clickable(onClick = { onClick(category) })
     ) {
-        Timber.d("Base ${String(Base64.decode(category.icon.toByteArray(), Base64.DEFAULT))}")
         AsyncImage(
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 8.dp)
                 .size(36.dp),
-            model = "https://vimos.ru/${
-                String(Base64.decode(category.icon.toByteArray(), Base64.DEFAULT))
+            model = "https://vimos.ru${
+                category.icon
             }",
             contentDescription = "back",
             colorFilter = if (setColorFilter) {
