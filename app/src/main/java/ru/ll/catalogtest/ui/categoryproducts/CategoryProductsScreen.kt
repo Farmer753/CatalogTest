@@ -2,6 +2,7 @@ package ru.ll.catalogtest.ui.categoryproducts
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,8 +16,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,6 +36,8 @@ import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.debugPlaceholder
 import ru.ll.catalogtest.ui.theme.AccentLite
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
+import ru.ll.catalogtest.ui.theme.GrayDark
+import ru.ll.catalogtest.ui.theme.GrayLite
 import ru.ll.catalogtest.ui.theme.Primary
 
 
@@ -53,7 +55,7 @@ fun CategoryProductsPreview() {
                     }
 
                     override suspend fun getProduct(slug: String): UiProduct {
-                        TODO("Not yet implemented")
+                        return UiProduct.test()
                     }
                 }, slug = ""
             )
@@ -70,17 +72,12 @@ fun CategoryProductsScreen(
     onProductClick: (UiProduct) -> Unit = {},
     onBackClick: () -> Unit
 ) {
-    Column(modifier = Modifier.background(color = Color.Yellow)) {
+    Column {
         Toolbar(
             title = "Каталог товаров",
             endIcon = null,
             onStartIconClick = onBackClick
         )
-//        val products: MutableState<List<UiProduct>> = remember {
-//            mutableStateOf(
-//                (1..100).map { test() }
-//            )
-//        }
         val products = viewModel.catalog.collectAsStateWithLifecycle()
         if (products.value != null) {
             Products(
@@ -95,7 +92,6 @@ fun CategoryProductsScreen(
 
 @Composable
 fun Products(
-    //TODO проверять наличие товара
     modifier: Modifier = Modifier,
     products: List<UiProduct>,
     onClick: (UiProduct) -> Unit
@@ -120,79 +116,74 @@ fun Product(
     product: UiProduct,
     onClick: (UiProduct) -> Unit
 ) {
-    Card(
-        onClick = { onClick(product) }
-    ) {
-        Row {
-            Column {
-                Box(modifier = Modifier.padding(16.dp, 12.dp)) {
-                    AsyncImage(
-                        model = "https://vimos.ru/${product.images.first()}",
-                        contentDescription = "test",
-                        placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
-                        modifier = Modifier
-                            .size(114.dp, 101.dp)
-
-                    )
-                    if (product.isDiscount) {
-                        Text(
-                            modifier = Modifier
-                                .padding(start = 16.dp)
-                                .background(
-                                    color = AccentLite,
-                                    shape = RoundedCornerShape(4.dp)
-                                )
-                                .padding(8.dp),
-                            text = "-${product.sizeDiscount}%",
-                            color = Color.White
-                        )
-                    }
-                }
-                Box(
+    Row(modifier = Modifier.clickable(onClick = { onClick(product) })) {
+        Column {
+            Box(modifier = Modifier.padding(16.dp, 12.dp)) {
+                AsyncImage(
+                    model = "https://vimos.ru/${product.images.first()}",
+                    contentDescription = "test",
+                    placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
                     modifier = Modifier
-                        .padding(start = 16.dp)
-                        .wrapContentHeight()
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.like),
-                        contentDescription = "back",
-                        modifier = Modifier
-                            .padding(10.dp)
-                    )
-                }
-            }
-            Column(
-                modifier = Modifier.padding(start = 8.dp, top = 16.dp, end = 16.dp, bottom = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+                        .size(114.dp, 101.dp)
 
-                Text(
-                    text = "Арт. ${product.sku}",
-//                    style = MaterialTheme.typography.body1.copy(color = Dark60)
                 )
-                Text(
-                    text = product.title,
-//                    style = MaterialTheme.typography.h6
-                )
-                Row {
+                if (product.isDiscount) {
                     Text(
-                        text = "${product.price / 100.0} P",
-//                        style = MaterialTheme.typography.body1.copy(color = Dark60),
                         modifier = Modifier
-                            .padding(end = 12.dp)
-                    )
-                    if (product.isDiscount) {
-                        OldPriceView(product.priceOld, null)
-                    }
-                }
-                if (product.countAvailable > 0) {
-                    Text(
-                        text = "В наличии",
-                        style = MaterialTheme.typography.bodyLarge.copy(color = Primary)
+                            .padding(start = 16.dp)
+                            .background(
+                                color = AccentLite,
+                                shape = RoundedCornerShape(4.dp)
+                            )
+                            .padding(8.dp),
+                        text = "-${product.sizeDiscount}%",
+                        color = Color.White
                     )
                 }
             }
-            Divider(color = Color.Black, thickness = 1.dp)
+            Box(
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .wrapContentHeight()
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.like),
+                    contentDescription = "back",
+                    modifier = Modifier
+                        .padding(10.dp)
+                )
+            }
         }
+        Column(
+            modifier = Modifier.padding(start = 8.dp, top = 16.dp, end = 16.dp, bottom = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = "Арт. ${product.sku}",
+                style = MaterialTheme.typography.bodySmall.copy(color = GrayLite)
+            )
+            Text(
+                text = product.title,
+                style = MaterialTheme.typography.bodyMedium.copy(color = GrayDark)
+            )
+            Row {
+                Text(
+                    text = "${product.price / 100.0} P",
+                    style = MaterialTheme.typography.bodyLarge.copy(color = GrayDark),
+                    modifier = Modifier
+                        .padding(end = 12.dp)
+                )
+                if (product.isDiscount) {
+                    OldPriceView(product.priceOld, null)
+                }
+            }
+            if (product.countAvailable > 0) {
+                Text(
+                    text = "В наличии",
+                    style = MaterialTheme.typography.bodyMedium.copy(color = Primary)
+                )
+            }
+        }
+        HorizontalDivider(thickness = 1.dp, color = Color.Black)
     }
 }

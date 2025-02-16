@@ -3,6 +3,7 @@ package ru.ll.catalogtest.ui.components
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +15,8 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntSize
+import ru.ll.catalogtest.ui.theme.Gray
+import ru.ll.catalogtest.ui.theme.GrayLite
 import timber.log.Timber
 
 @Composable
@@ -35,7 +38,11 @@ fun OldPriceView(priceOld: Int, units: String?) {
                     ""
                 }
             }",
-//                style = MaterialTheme.typography.body1,
+            style = if (units != null) {
+                MaterialTheme.typography.titleMedium
+            } else {
+                MaterialTheme.typography.bodySmall
+            }.copy(color = Gray),
             modifier = Modifier
                 .onSizeChanged {
                     textSize.value = it

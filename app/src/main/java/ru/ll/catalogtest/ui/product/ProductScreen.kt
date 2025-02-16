@@ -38,7 +38,7 @@ import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.debugPlaceholder
 import ru.ll.catalogtest.ui.theme.Accent
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
-import ru.ll.catalogtest.ui.theme.DarkGray
+import ru.ll.catalogtest.ui.theme.GrayDark
 import timber.log.Timber
 
 
@@ -186,12 +186,12 @@ fun ProductDetailsView(product: UiProduct) {
         val color = if (product.isDiscount) {
             Accent
         } else {
-            DarkGray
+            GrayDark
         }
         Text(
             text = "${product.price / 100.0} P/${product.units}",
 
-            style = MaterialTheme.typography.bodyLarge.copy(color = color),
+            style = MaterialTheme.typography.titleLarge.copy(color = color),
             modifier = Modifier
                 .padding(end = 16.dp)
         )
