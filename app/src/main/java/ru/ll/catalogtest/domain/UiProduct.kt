@@ -36,7 +36,7 @@ data class UiProduct(
                 description = "Описание ${Random.nextInt()}",
                 price = Random.nextInt(),
                 priceOld = Random.nextInt(),
-                sizeDiscount = Random.nextDouble(),
+                sizeDiscount = 5.25,
                 countAvailable = Random.nextInt(),
                 images = listOf(PNG)
             )

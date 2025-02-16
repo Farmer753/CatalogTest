@@ -12,11 +12,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -38,6 +38,7 @@ import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.debugPlaceholder
 import ru.ll.catalogtest.ui.theme.Accent
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
+import ru.ll.catalogtest.ui.theme.DarkGray
 import timber.log.Timber
 
 
@@ -147,7 +148,7 @@ fun ColumnScope.ProductView(
                     .padding(start = 16.dp)
                     .background(
                         color = Accent,
-                        shape = MaterialTheme.shapes.medium
+                        shape = RoundedCornerShape(4.dp)
                     )
                     .padding(8.dp),
                 text = "-${product.sizeDiscount}%",
@@ -182,16 +183,20 @@ fun ProductDetailsView(product: UiProduct) {
     Row(
         modifier = Modifier.padding(16.dp, 13.dp)
     ) {
+        val color = if (product.isDiscount) {
+            Accent
+        } else {
+            DarkGray
+        }
         Text(
             text = "${product.price / 100.0} P/${product.units}",
-//            style = MaterialTheme.typography.body1.copy(color = Dark60),
-            modifier = Modifier
-                .weight(1f)
-                .wrapContentHeight()
 
+            style = MaterialTheme.typography.bodyLarge.copy(color = color),
+            modifier = Modifier
+                .padding(end = 16.dp)
         )
         if (product.isDiscount) {
-            OldPriceView(product.priceOld)
+            OldPriceView(product.priceOld, product.units)
         }
     }
 }

@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
@@ -28,20 +29,35 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.R
+import ru.ll.catalogtest.domain.ProductsRepository
 import ru.ll.catalogtest.domain.UiProduct
 import ru.ll.catalogtest.ui.components.OldPriceView
 import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.debugPlaceholder
+import ru.ll.catalogtest.ui.theme.AccentLite
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
 import ru.ll.catalogtest.ui.theme.Primary
-import ru.ll.catalogtest.ui.theme.Sale
 
 
 @Preview
 @Composable
 fun CategoryProductsPreview() {
     CatalogTestTheme {
-        CategoryProductsScreen("", onBackClick = {})
+        CategoryProductsScreen(
+            categorySlug = "",
+            onBackClick = {},
+            viewModel = CategoryProductsViewModel(
+                productsRepository = object : ProductsRepository {
+                    override suspend fun getData(slug: String): List<UiProduct> {
+                        return listOf(UiProduct.test())
+                    }
+
+                    override suspend fun getProduct(slug: String): UiProduct {
+                        TODO("Not yet implemented")
+                    }
+                }, slug = ""
+            )
+        )
     }
 }
 
@@ -120,10 +136,13 @@ fun Product(
                     )
                     if (product.isDiscount) {
                         Text(
-                            modifier = Modifier.background(
-                                color = Sale,
-                                shape = MaterialTheme.shapes.medium
-                            ),
+                            modifier = Modifier
+                                .padding(start = 16.dp)
+                                .background(
+                                    color = AccentLite,
+                                    shape = RoundedCornerShape(4.dp)
+                                )
+                                .padding(8.dp),
                             text = "-${product.sizeDiscount}%",
                             color = Color.White
                         )
@@ -143,7 +162,7 @@ fun Product(
                 }
             }
             Column(
-                modifier = Modifier.padding(8.dp, 0.dp, 0.dp, 40.dp),
+                modifier = Modifier.padding(start = 8.dp, top = 16.dp, end = 16.dp, bottom = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
 
@@ -160,12 +179,10 @@ fun Product(
                         text = "${product.price / 100.0} P",
 //                        style = MaterialTheme.typography.body1.copy(color = Dark60),
                         modifier = Modifier
-                            .weight(1f)
-                            .wrapContentHeight()
-
+                            .padding(end = 12.dp)
                     )
                     if (product.isDiscount) {
-                        OldPriceView(product.priceOld)
+                        OldPriceView(product.priceOld, null)
                     }
                 }
                 if (product.countAvailable > 0) {

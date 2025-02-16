@@ -2,7 +2,6 @@ package ru.ll.catalogtest.ui.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,22 +14,27 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.dp
 import timber.log.Timber
 
 @Composable
-fun OldPriceView(priceOld: Int) {
+fun OldPriceView(priceOld: Int, units: String?) {
 
 //TODO передавать юниты
     Box(
-        modifier = Modifier
-            .padding(8.dp)
+//        modifier = Modifier
+//            .padding(8.dp)
     ) {
         val textSize = remember {
             mutableStateOf(IntSize(0, 0))
         }
         Text(
-            text = "${priceOld / 100.0} P",
+            text = "${priceOld / 100.0} P${
+                if (units != null) {
+                    "/${units}"
+                } else {
+                    ""
+                }
+            }",
 //                style = MaterialTheme.typography.body1,
             modifier = Modifier
                 .onSizeChanged {
