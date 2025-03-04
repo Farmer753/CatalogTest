@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.domain.UiCategory
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
+import ru.ll.catalogtest.ui.theme.GrayDark
 
 
 @Composable
@@ -46,6 +47,7 @@ fun CatalogItem(
         Text(
             modifier = Modifier
                 .align(Alignment.CenterVertically),
+            style = MaterialTheme.typography.titleSmall.copy(color = GrayDark),
             text = category.title
         )
     }

@@ -81,7 +81,7 @@ fun Toolbar(
 
         Text(
             text = title ?: "",
-            style = MaterialTheme.typography.bodyLarge.copy(color = contentColor),
+            style = MaterialTheme.typography.titleLarge.copy(color = contentColor),
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .align(Alignment.CenterVertically)
