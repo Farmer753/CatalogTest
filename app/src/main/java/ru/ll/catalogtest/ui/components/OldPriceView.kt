@@ -22,11 +22,7 @@ import timber.log.Timber
 @Composable
 fun OldPriceView(priceOld: Int, units: String?) {
 
-//TODO передавать юниты
-    Box(
-//        modifier = Modifier
-//            .padding(8.dp)
-    ) {
+    Box {
         val textSize = remember {
             mutableStateOf(IntSize(0, 0))
         }

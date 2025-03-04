@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -36,6 +37,7 @@ import ru.ll.catalogtest.ui.components.Toolbar
 import ru.ll.catalogtest.ui.debugPlaceholder
 import ru.ll.catalogtest.ui.theme.AccentLite
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
+import ru.ll.catalogtest.ui.theme.GrayBg
 import ru.ll.catalogtest.ui.theme.GrayDark
 import ru.ll.catalogtest.ui.theme.GrayLite
 import ru.ll.catalogtest.ui.theme.Primary
@@ -107,6 +109,11 @@ fun Products(
     ) {
         items(products) { product ->
             Product(product = product, onClick = onClick)
+            HorizontalDivider(
+                modifier = Modifier.fillMaxWidth(),
+                thickness = 1.dp,
+                color = GrayBg
+            )
         }
     }
 }
@@ -184,6 +191,6 @@ fun Product(
                 )
             }
         }
-        HorizontalDivider(thickness = 1.dp, color = Color.Black)
+
     }
 }
