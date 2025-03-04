@@ -59,7 +59,8 @@ fun CategoryProductsPreview() {
                     override suspend fun getProduct(slug: String): UiProduct {
                         return UiProduct.test()
                     }
-                }, slug = ""
+                },
+                slug = ""
             )
         )
     }

@@ -23,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
@@ -32,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.R
+import ru.ll.catalogtest.domain.ProductsRepository
 import ru.ll.catalogtest.domain.UiProduct
 import ru.ll.catalogtest.ui.components.OldPriceView
 import ru.ll.catalogtest.ui.components.Toolbar
@@ -39,6 +41,7 @@ import ru.ll.catalogtest.ui.debugPlaceholder
 import ru.ll.catalogtest.ui.theme.Accent
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
 import ru.ll.catalogtest.ui.theme.GrayDark
+import ru.ll.catalogtest.ui.theme.GrayLite
 import timber.log.Timber
 
 
@@ -46,7 +49,19 @@ import timber.log.Timber
 @Composable
 fun ProductPreview() {
     CatalogTestTheme {
-        ProductScreen("hhh", onBackClick = {})
+        ProductScreen("hhh", onBackClick = {}, viewModel = ProductViewModel(
+            productsRepository = object : ProductsRepository {
+                override suspend fun getData(slug: String): List<UiProduct> {
+                    return listOf(UiProduct.test())
+                }
+
+                override suspend fun getProduct(slug: String): UiProduct {
+                    return UiProduct.test()
+                }
+            },
+            slug = ""
+        )
+        )
     }
 }
 
@@ -169,11 +184,11 @@ fun ProductTitleView(product: UiProduct) {
 
         Text(
             text = "Арт. ${product.sku}",
-//            style = MaterialTheme.typography.body1.copy(color = Dark60)
+            style = MaterialTheme.typography.titleSmall.copy(color = GrayLite)
         )
         Text(
             text = product.title,
-//            style = MaterialTheme.typography.h4
+             style = MaterialTheme.typography.titleMedium.copy(color = GrayDark)
         )
     }
 }
@@ -181,7 +196,8 @@ fun ProductTitleView(product: UiProduct) {
 @Composable
 fun ProductDetailsView(product: UiProduct) {
     Row(
-        modifier = Modifier.padding(16.dp, 13.dp)
+        modifier = Modifier.padding(16.dp, 13.dp),
+        verticalAlignment = Alignment.Bottom
     ) {
         val color = if (product.isDiscount) {
             Accent
