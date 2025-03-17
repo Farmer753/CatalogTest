@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CatalogTest</string>
+    <string name="goods_catalog">Каталог товаров</string>
 </resources>

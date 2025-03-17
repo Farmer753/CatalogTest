@@ -33,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.R
+import ru.ll.catalogtest.domain.ApiConst.API_URL_IMG
 import ru.ll.catalogtest.domain.ProductsRepository
 import ru.ll.catalogtest.domain.UiProduct
 import ru.ll.catalogtest.ui.components.OldPriceView
@@ -49,18 +50,19 @@ import timber.log.Timber
 @Composable
 fun ProductPreview() {
     CatalogTestTheme {
-        ProductScreen("hhh", onBackClick = {}, viewModel = ProductViewModel(
-            productsRepository = object : ProductsRepository {
-                override suspend fun getData(slug: String): List<UiProduct> {
-                    return listOf(UiProduct.test())
-                }
+        ProductScreen(
+            "hhh", onBackClick = {}, viewModel = ProductViewModel(
+                productsRepository = object : ProductsRepository {
+                    override suspend fun getData(slug: String): List<UiProduct> {
+                        return listOf(UiProduct.test())
+                    }
 
-                override suspend fun getProduct(slug: String): UiProduct {
-                    return UiProduct.test()
-                }
-            },
-            slug = ""
-        )
+                    override suspend fun getProduct(slug: String): UiProduct {
+                        return UiProduct.test()
+                    }
+                },
+                slug = ""
+            )
         )
     }
 }
@@ -141,7 +143,7 @@ fun ColumnScope.ProductView(
         HorizontalPager(state = pagerState) { page ->
 
             AsyncImage(
-                model = "https://vimos.ru/${product.images[page]}",
+                model = API_URL_IMG + product.images[page],
                 contentDescription = "test",
                 placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
                 modifier = Modifier
@@ -188,7 +190,7 @@ fun ProductTitleView(product: UiProduct) {
         )
         Text(
             text = product.title,
-             style = MaterialTheme.typography.titleMedium.copy(color = GrayDark)
+            style = MaterialTheme.typography.titleMedium.copy(color = GrayDark)
         )
     }
 }

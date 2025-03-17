@@ -19,7 +19,6 @@ data class UiProduct(
     val sizeDiscount: Double,
     val countAvailable: Int,
     val images: List<@Serializable(with = FuckingStringSerializer::class) String>
-//    val images: List<String>
 ) {
     companion object {
 

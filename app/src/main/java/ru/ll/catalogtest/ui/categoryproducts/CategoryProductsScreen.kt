@@ -24,12 +24,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import ru.ll.catalogtest.R
+import ru.ll.catalogtest.domain.ApiConst.API_URL_IMG
 import ru.ll.catalogtest.domain.ProductsRepository
 import ru.ll.catalogtest.domain.UiProduct
 import ru.ll.catalogtest.ui.components.OldPriceView
@@ -52,6 +54,7 @@ fun CategoryProductsPreview() {
             onBackClick = {},
             viewModel = CategoryProductsViewModel(
                 productsRepository = object : ProductsRepository {
+
                     override suspend fun getData(slug: String): List<UiProduct> {
                         return listOf(UiProduct.test())
                     }
@@ -77,7 +80,7 @@ fun CategoryProductsScreen(
 ) {
     Column {
         Toolbar(
-            title = "Каталог товаров",
+            title = stringResource(R.string.goods_catalog),
             endIcon = null,
             onStartIconClick = onBackClick
         )
@@ -128,7 +131,7 @@ fun Product(
         Column {
             Box(modifier = Modifier.padding(16.dp, 12.dp)) {
                 AsyncImage(
-                    model = "https://vimos.ru/${product.images.first()}",
+                    model = "$API_URL_IMG{product.images.first()}",
                     contentDescription = "test",
                     placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
                     modifier = Modifier

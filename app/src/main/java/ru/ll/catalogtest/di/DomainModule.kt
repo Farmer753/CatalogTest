@@ -13,6 +13,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.ll.catalogtest.data.CategoryRepositoryImpl
 import ru.ll.catalogtest.data.Converter
 import ru.ll.catalogtest.data.ProductsRepositoryImpl
+import ru.ll.catalogtest.domain.ApiConst.API_URL
 import ru.ll.catalogtest.domain.CategoryRepository
 import ru.ll.catalogtest.domain.ProductsRepository
 import ru.ll.catalogtest.domain.api.CategoriesApi
@@ -70,7 +71,7 @@ object DomainModule {
     ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("https://vimos.ru:1480/")
+            .baseUrl(API_URL)
             .addConverterFactory(
                 MoshiConverterFactory.create(
                     Moshi.Builder()

@@ -47,10 +47,6 @@ class MainActivity : ComponentActivity() {
                 NavHost(navController, startDestination = Catalog) {
                     composable<Catalog> {
                         CatalogScreen(
-                            onCategorySlugClick = { categorySlug ->
-                                Timber.d("CatalogScreen onCategorySlugClick $categorySlug")
-                                navController.navigate(CategoryProducts(categorySlug))
-                            },
                             onCategoryClick = { category ->
                                 Timber.d("CatalogScreen onCategoryClick $category")
                                 navController.navigate(SubCatalog(category))

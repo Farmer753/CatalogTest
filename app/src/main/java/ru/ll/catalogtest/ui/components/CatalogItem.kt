@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import ru.ll.catalogtest.domain.ApiConst.API_URL_IMG_CATEGORY
 import ru.ll.catalogtest.domain.UiCategory
 import ru.ll.catalogtest.ui.theme.CatalogTestTheme
 import ru.ll.catalogtest.ui.theme.GrayDark
@@ -34,9 +35,7 @@ fun CatalogItem(
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 8.dp)
                 .size(36.dp),
-            model = "https://vimos.ru${
-                category.icon
-            }",
+            model = API_URL_IMG_CATEGORY + category.icon,
             contentDescription = "back",
             colorFilter = if (setColorFilter) {
                 ColorFilter.tint(MaterialTheme.colorScheme.primary)

@@ -65,8 +65,8 @@ fun Toolbar(
             IconButton(
                 onClick = onStartIconClick,
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
                     .size(48.dp)
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
                     .align(Alignment.CenterVertically)
             ) {
                 Image(
@@ -91,8 +91,8 @@ fun Toolbar(
             IconButton(
                 onClick = onEndIconClick,
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
                     .size(48.dp)
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
                     .align(Alignment.CenterVertically)
             ) {
                 Image(

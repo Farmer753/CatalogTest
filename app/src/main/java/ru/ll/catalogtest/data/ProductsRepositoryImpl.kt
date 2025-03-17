@@ -8,6 +8,7 @@ class ProductsRepositoryImpl(
     private val productApi: ProductApi,
     private val converter: Converter
 ) : ProductsRepository {
+
     override suspend fun getData(slug: String): List<UiProduct> {
         return productApi.getAllProduct(slug).map {
             val nwProduct = productApi.getProduct(it.slug)
@@ -19,8 +20,5 @@ class ProductsRepositoryImpl(
         return productApi.getProduct(slug).let {
             converter.convert(it)
         }
-        //TODO убрать
-//            .copy(sizeDiscount = 5.5)
     }
-
 }

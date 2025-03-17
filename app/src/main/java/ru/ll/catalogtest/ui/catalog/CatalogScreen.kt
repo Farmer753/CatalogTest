@@ -17,11 +17,13 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ru.ll.catalogtest.R
 import ru.ll.catalogtest.domain.UiCategory
 import ru.ll.catalogtest.ui.components.CatalogItem
 import ru.ll.catalogtest.ui.components.Toolbar
@@ -41,15 +43,13 @@ private fun CatalogPreview() {
 fun CatalogScreen(
     viewModel: CatalogViewModel = hiltViewModel(),
     onCategoryClick: (UiCategory) -> Unit = {},
-    onCategorySlugClick: (String) -> Unit = {}
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
         Toolbar(
-            title = "Каталог товаров",
+            title = stringResource(R.string.goods_catalog),
             endIcon = null,
             startIcon = null
         )
@@ -100,8 +100,3 @@ fun CatalogScreen(
         }
     }
 }
-
-
-
-
-
