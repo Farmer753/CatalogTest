@@ -8,15 +8,14 @@ plugins {
 
 android {
     namespace = "ru.ll.catalogtest"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "ru.ll.catalogtest"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
     }
 
     buildTypes {
