@@ -45,7 +45,7 @@ fun CardProduct() {
                 .weight(1f)
         ) {
             AsyncImage(
-                model = UiCategory.ESKARO,
+                model = UiCategory.TEST,
                 contentDescription = "test",
                 placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
                 modifier = Modifier

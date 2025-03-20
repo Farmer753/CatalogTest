@@ -6,6 +6,7 @@ import ru.ll.catalogtest.domain.api.NwCategory
 import ru.ll.catalogtest.domain.api.NwProduct
 
 class Converter {
+
     fun convert(nwCategory: NwCategory): UiCategory {
         return UiCategory(
             title = nwCategory.title,

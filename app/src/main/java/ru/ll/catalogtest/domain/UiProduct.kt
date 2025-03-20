@@ -44,4 +44,3 @@ data class UiProduct(
 
     val isDiscount = sizeDiscount != 0.0
 }
-

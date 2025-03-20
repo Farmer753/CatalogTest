@@ -12,7 +12,7 @@ data class UiCategory(
     val subCategories: List<UiCategory>
 ) {
     companion object {
-        const val ESKARO = "https://vimos.ru/u/category/ObEcDB_1685695466.png"
+        const val TEST = "https://vimos.ru/u/category/ObEcDB_1685695466.png"
         fun default(hasSubCategories: Boolean): UiCategory {
             return UiCategory(
                 title = "Заголовок",
@@ -27,4 +27,3 @@ data class UiCategory(
         }
     }
 }
-

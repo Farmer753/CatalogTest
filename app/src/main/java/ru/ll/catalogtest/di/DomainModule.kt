@@ -24,6 +24,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DomainModule {
+
     @Provides
     @Singleton
     fun provideConverter(

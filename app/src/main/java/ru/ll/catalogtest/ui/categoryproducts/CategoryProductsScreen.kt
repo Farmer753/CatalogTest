@@ -131,12 +131,11 @@ fun Product(
         Column {
             Box(modifier = Modifier.padding(16.dp, 12.dp)) {
                 AsyncImage(
-                    model = "$API_URL_IMG{product.images.first()}",
+                    model = API_URL_IMG + product.images.first(),
                     contentDescription = "test",
                     placeholder = debugPlaceholder(R.drawable.ic_launcher_background),
                     modifier = Modifier
                         .size(114.dp, 101.dp)
-
                 )
                 if (product.isDiscount) {
                     Text(
@@ -170,7 +169,7 @@ fun Product(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
-                text = "Арт. ${product.sku}",
+                text = stringResource(id = R.string.sku, product.sku),
                 style = MaterialTheme.typography.bodySmall.copy(color = GrayLite)
             )
             Text(
@@ -179,7 +178,7 @@ fun Product(
             )
             Row {
                 Text(
-                    text = "${product.price / 100.0} P",
+                    text = stringResource(id = R.string.rub, product.price / 100.0),
                     style = MaterialTheme.typography.bodyLarge.copy(color = GrayDark),
                     modifier = Modifier
                         .padding(end = 12.dp)
@@ -190,11 +189,10 @@ fun Product(
             }
             if (product.countAvailable > 0) {
                 Text(
-                    text = "В наличии",
+                    text = stringResource(R.string.available),
                     style = MaterialTheme.typography.bodyMedium.copy(color = Primary)
                 )
             }
         }
-
     }
 }
