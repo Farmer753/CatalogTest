@@ -2,19 +2,20 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.jetbrainsKotlinKapt)
+    alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
     namespace = "ru.ll.catalogtest"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "ru.ll.catalogtest"
-        minSdk = 24
-        targetSdk = 34
+        minSdk = 26
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
     }
 
     buildTypes {
@@ -27,17 +28,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
@@ -57,11 +58,13 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    debugImplementation(libs.androidx.ui.tooling)
     //Logging
     implementation(libs.timber)
     //    hilt
-    implementation (libs.hilt)
+    implementation(libs.hilt)
     kapt(libs.dagger)
+    implementation("com.squareup:javapoet:1.13.0")
     //    retrofit
     implementation(libs.retrofit)
     //    retrofit-adapter
@@ -70,6 +73,7 @@ dependencies {
     implementation(libs.okhttp)
 //    moshi
     implementation(libs.moshi)
+    implementation(libs.squareup.moshi)
 //logging-interceptor
     implementation(libs.interceptor)
     //    coil
@@ -78,4 +82,8 @@ dependencies {
     // coroutines
     implementation(libs.coroutines)
     implementation(libs.lifecycle)
+    //navigation
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.android.hilt.compose)
 }

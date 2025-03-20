@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CatalogTest</string>
+    <string name="goods_catalog">Каталог товаров</string>
+    <string name="sku">Арт. %s</string>
+    <string name="rub">%s Р</string>
+    <string name="available">В наличии</string>
 </resources>
