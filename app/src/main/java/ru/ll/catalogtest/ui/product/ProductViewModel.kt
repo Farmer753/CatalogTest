@@ -35,11 +35,9 @@ class ProductViewModel @AssistedInject constructor(
     private val _error = MutableStateFlow<String?>(null)
     val error = _error.asStateFlow()
 
-
     init {
         getData()
         Timber.d("slug: $slug")
-
     }
 
     fun getData() {
@@ -58,5 +56,4 @@ class ProductViewModel @AssistedInject constructor(
             }
         }
     }
-
 }

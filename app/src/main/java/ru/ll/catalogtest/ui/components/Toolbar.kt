@@ -51,7 +51,7 @@ fun Toolbar(
     onStartIconClick: () -> Unit = {},
     onEndIconClick: () -> Unit = {},
     @DrawableRes
-    startIcon: Int? = R.drawable.vector,
+    startIcon: Int? = R.drawable.arrow,
     @DrawableRes
     endIcon: Int? = R.drawable.share_symbol
 ) {
@@ -105,5 +105,4 @@ fun Toolbar(
             }
         }
     }
-
 }

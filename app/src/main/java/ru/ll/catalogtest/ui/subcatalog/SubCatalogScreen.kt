@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,16 +25,13 @@ private fun SubCatalogPreview() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SubCatalogScreen(
     viewModel: SubCatalogViewModel = hiltViewModel(),
     onCategoryClick: (UiCategory) -> Unit = {},
-    onCategorySlugClick: (String) -> Unit = {},
     uiCategory: UiCategory,
     onBackClick: () -> Unit
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,25 +53,3 @@ fun SubCatalogScreen(
         }
     }
 }
-
-//@Composable
-//private fun Toolbar() {
-//    Box(
-//        modifier = Modifier
-//            .height(56.dp)
-//            .fillMaxWidth()
-//            .background(MaterialTheme.colorScheme.primary)
-//            .padding(start = 16.dp),
-//        contentAlignment = Alignment.CenterStart
-//    ) {
-//        Text(
-//            text = "Каталог товаров",
-//            color = MaterialTheme.colorScheme.onPrimary,
-//            fontSize = 22.sp
-//        )
-//    }
-//}
-
-
-
-

@@ -8,7 +8,6 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import java.net.URLDecoder
 import java.net.URLEncoder
-import java.util.Base64
 
 /**
  * Wraps and unwraps String into/from Base64 format
@@ -18,7 +17,7 @@ import java.util.Base64
  */
 object FuckingStringSerializer : KSerializer<String> {
     override val descriptor: SerialDescriptor =
-        PrimitiveSerialDescriptor("com.distinctline.FuckingString", PrimitiveKind.STRING)
+        PrimitiveSerialDescriptor("FuckingString", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, value: String) {
         encoder.encodeString(
@@ -32,14 +31,4 @@ object FuckingStringSerializer : KSerializer<String> {
         val string = decoder.decodeString()
         return URLDecoder.decode(string, Charsets.UTF_8.name())
     }
-}
-
-fun String?.toBase64(): String {
-    if (this == null) return ""
-    return Base64.getEncoder().encodeToString(this.toByteArray())
-}
-
-fun String?.fromBase64(): String {
-    if (this == null) return ""
-    return String(Base64.getDecoder().decode(this))
 }

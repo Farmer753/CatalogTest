@@ -63,7 +63,7 @@ dependencies {
     //Logging
     implementation(libs.timber)
     //    hilt
-    implementation (libs.hilt)
+    implementation(libs.hilt)
     kapt(libs.dagger)
     implementation("com.squareup:javapoet:1.13.0")
     //    retrofit
@@ -83,7 +83,7 @@ dependencies {
     // coroutines
     implementation(libs.coroutines)
     implementation(libs.lifecycle)
-        //navigation
+    //navigation
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.android.hilt.compose)

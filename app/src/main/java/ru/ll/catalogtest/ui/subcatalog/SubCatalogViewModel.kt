@@ -6,7 +6,4 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class SubCatalogViewModel @Inject constructor(
-) : ViewModel() {
-
-}
+class SubCatalogViewModel @Inject constructor() : ViewModel()

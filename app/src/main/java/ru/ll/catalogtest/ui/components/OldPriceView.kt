@@ -16,12 +16,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.IntSize
 import ru.ll.catalogtest.ui.theme.Gray
-import ru.ll.catalogtest.ui.theme.GrayLite
 import timber.log.Timber
 
 @Composable
 fun OldPriceView(priceOld: Int, units: String?) {
-
     Box {
         val textSize = remember {
             mutableStateOf(IntSize(0, 0))
@@ -55,7 +53,6 @@ fun OldPriceView(priceOld: Int, units: String?) {
                 )
             }
         )) {
-
             // Fetching width and height for
             // setting start x and end y
             val canvasWidth = size.width
@@ -72,5 +69,4 @@ fun OldPriceView(priceOld: Int, units: String?) {
             )
         }
     }
-
 }

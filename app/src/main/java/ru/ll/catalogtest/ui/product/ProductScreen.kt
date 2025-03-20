@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -53,6 +54,7 @@ fun ProductPreview() {
         ProductScreen(
             "hhh", onBackClick = {}, viewModel = ProductViewModel(
                 productsRepository = object : ProductsRepository {
+
                     override suspend fun getData(slug: String): List<UiProduct> {
                         return listOf(UiProduct.test())
                     }
@@ -122,7 +124,6 @@ fun ProductScreen(
                 }
             }
         }
-
     }
 }
 
@@ -135,13 +136,11 @@ fun ColumnScope.ProductView(
             .verticalScroll(rememberScrollState())
             .weight(1f)
     ) {
-
         val pagerState = rememberPagerState(
             pageCount = { product.images.size },
         )
 
         HorizontalPager(state = pagerState) { page ->
-
             AsyncImage(
                 model = API_URL_IMG + product.images[page],
                 contentDescription = "test",
@@ -183,9 +182,8 @@ fun ProductTitleView(product: UiProduct) {
         modifier = Modifier.padding(16.dp, 24.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-
         Text(
-            text = "Арт. ${product.sku}",
+            text = stringResource(id = R.string.sku, product.sku),
             style = MaterialTheme.typography.titleSmall.copy(color = GrayLite)
         )
         Text(
@@ -219,7 +217,6 @@ fun ProductDetailsView(product: UiProduct) {
     }
 }
 
-
 @Composable
 fun PointsView(
     modifier: Modifier = Modifier,
@@ -247,7 +244,6 @@ fun PointsView(
     }
 }
 
-
 @Preview
 @Composable
 private fun PagerIndicatorPreview() {
@@ -259,5 +255,3 @@ private fun PagerIndicatorPreview() {
         )
     }
 }
-
-
